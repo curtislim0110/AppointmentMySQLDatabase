@@ -1,5 +1,3 @@
-package model;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,9 +7,11 @@ import DAO.JDBC;
 
 public class Main extends Application {
 
+    // Locale.setDefault(new Locale("fr"));
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../view_controller/sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/sample.fxml"));
         primaryStage.setTitle("anothertest");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
