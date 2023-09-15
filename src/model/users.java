@@ -2,9 +2,9 @@ package model;
 
 public class users {
 
-    public int user_ID;
-    public String user_Name;
-    public String password;
+    private int user_ID;
+    private String user_Name;
+    private String password;
 
     public users(int user_ID, String user_Name, String password) {
         this.user_ID = user_ID;
