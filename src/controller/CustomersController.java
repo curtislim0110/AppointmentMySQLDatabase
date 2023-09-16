@@ -1,5 +1,6 @@
 package controller;
 
+import DAO.customersDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +12,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.customers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,7 +49,7 @@ public class CustomersController implements Initializable {
     private ComboBox<?> comboboxFirstLevel;
 
     @FXML
-    private TableView<?> tableCustomers;
+    private TableView<customers> tableCustomers;
 
     @FXML
     private TextField textAddress;
@@ -90,6 +93,13 @@ public class CustomersController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        tableCustomers.setItems(customersDAO.getAllCustomers());
+        columnID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        columnName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        columnAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
+        columnPostal.setCellValueFactory(new PropertyValueFactory<>("customerPostal"));
+        columnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
+        columnFirstLevel.setCellValueFactory(new PropertyValueFactory<>("firstDivisionName"));
 
     }
 }
