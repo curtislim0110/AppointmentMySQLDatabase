@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class loginscreencontroller implements Initializable {
@@ -54,6 +55,7 @@ public class loginscreencontroller implements Initializable {
 
 
 
+
     }
 
     public void loginAttemptTXT(boolean loginBooleanType) throws IOException {
@@ -78,6 +80,15 @@ public class loginscreencontroller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("Login Initialized!");
+
+        // Open the system default language bundle, either english or french, and change labels appropriately
+        ResourceBundle languageBundle = ResourceBundle.getBundle("language/language", Locale.getDefault());
+        titlelabel.setText(languageBundle.getString("title"));
+        usernamelabel.setText(languageBundle.getString("username"));
+        passwordlabel.setText(languageBundle.getString("password"));
+        loginButton.setText(languageBundle.getString("login"));
+
+
     }
 
 

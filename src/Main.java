@@ -19,8 +19,9 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-        // Setting and displaying the Locale to french for testing only
+        // Commented next line is for testing system default language in french
         // Locale.setDefault(new Locale("fr"));
+
         Locale new_locale = Locale.getDefault();
         System.out.println("Current system locale: " + new_locale);
 
