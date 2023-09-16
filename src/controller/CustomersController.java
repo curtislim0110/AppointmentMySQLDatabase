@@ -34,6 +34,9 @@ public class CustomersController implements Initializable {
     private TableColumn<?, ?> columnID;
 
     @FXML
+    private TableColumn<?, ?> columncountry;
+
+    @FXML
     private TableColumn<?, ?> columnName;
 
     @FXML
@@ -93,6 +96,7 @@ public class CustomersController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // when opening customers menu, display all customers in database joined with their first division name
         tableCustomers.setItems(customersDAO.getAllCustomers());
         columnID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         columnName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
@@ -100,6 +104,7 @@ public class CustomersController implements Initializable {
         columnPostal.setCellValueFactory(new PropertyValueFactory<>("customerPostal"));
         columnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
         columnFirstLevel.setCellValueFactory(new PropertyValueFactory<>("firstDivisionName"));
+        columncountry.setCellValueFactory(new PropertyValueFactory<>("countryName"));
 
     }
 }

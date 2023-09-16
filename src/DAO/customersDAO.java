@@ -31,9 +31,11 @@ public class customersDAO {
                 String phone = rs.getString("Phone");
                 int firstDivisionID = rs.getInt("Division_ID");
                 String firstDivisionName = rs.getString("Division");
+                int countryID = rs.getInt("Country_ID");
+                String countryName = rs.getString("Country");
 
                 customers currentcustomer = new customers(customerID, customerName, address,
-                        postal, phone, firstDivisionID, firstDivisionName);
+                        postal, phone, firstDivisionID, firstDivisionName, countryID, countryName);
 
                 customersList.add(currentcustomer);
             }
