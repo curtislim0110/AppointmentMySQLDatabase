@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 
 import static DAO.usersDAO.usersLogin;
 
-public class loginscreencontroller implements Initializable {
+public class LoginScreenController implements Initializable {
 
     private Stage stage;
     private Parent scene;
@@ -54,7 +54,6 @@ public class loginscreencontroller implements Initializable {
 
 
     public void onActionLoginButton(ActionEvent actionEvent) throws IOException {
-        System.out.println("Login button pressed!");
 
         ResourceBundle languageBundle = ResourceBundle.getBundle("language/language", Locale.getDefault());
 
@@ -88,7 +87,7 @@ public class loginscreencontroller implements Initializable {
         else if (currentuser != null) {
             loginAttemptTXT(true);
 
-            Parent root = FXMLLoader.load(getClass().getResource("/view/mainmenu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -118,7 +117,6 @@ public class loginscreencontroller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Login Initialized!");
 
         // Sets the location text box (which is not editable) to system default
         localtionlabeltxt.setText(String.valueOf(ZoneId.systemDefault()));

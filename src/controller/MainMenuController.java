@@ -12,7 +12,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 
-public class mainmenucontroller implements Initializable {
+public class MainMenuController implements Initializable {
 
     @FXML
     private Button appointmentsbutton;
@@ -25,17 +25,19 @@ public class mainmenucontroller implements Initializable {
 
     @FXML
     void onActionAppointments(ActionEvent event) throws IOException {
-
+        System.out.println("Appointments Button Used");
     }
 
     @FXML
     void onActionCustomers(ActionEvent event) throws IOException {
+        System.out.println("Customers Button Used");
+
 
     }
 
     @FXML
     void onActionReports(ActionEvent event) throws IOException {
-
+        System.out.println("Reports Button Used");
     }
 
 
