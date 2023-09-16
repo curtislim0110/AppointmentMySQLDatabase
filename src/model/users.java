@@ -12,6 +12,7 @@ public class users {
         this.password = password;
     }
 
+    // Getters
     public int getUser_ID() {
         return user_ID;
     }
