@@ -10,7 +10,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
 
 public class loginscreencontroller implements Initializable {
@@ -38,8 +43,36 @@ public class loginscreencontroller implements Initializable {
 
 
 
-    public void onActionLoginButton(ActionEvent actionEvent) {
-        System.out.println("Login Button clicked!");
+    public void onActionLoginButton(ActionEvent actionEvent) throws IOException {
+
+        // get username and password from text fields
+        String usernameInput = usernametxt.getText();
+        String passwordInput = passwordtxt.getText();
+
+        loginAttemptTXT(true);
+        loginAttemptTXT(false);
+
+
+
+    }
+
+    public void loginAttemptTXT(boolean loginBooleanType) throws IOException {
+        LocalDateTime now = LocalDateTime.now();
+        String filename = "login_activity.txt";
+
+        FileWriter currentFileWriter = new FileWriter(filename, true);
+        PrintWriter loginOutputFile = new PrintWriter(currentFileWriter);
+
+        if (loginBooleanType) {
+            loginOutputFile.println(usernametxt.getText() + " had a successful login at " + now + " " + ZoneId.systemDefault());
+        }
+
+        if (!loginBooleanType) {
+            loginOutputFile.println(usernametxt.getText() + " had a failed login at " + now + " " + ZoneId.systemDefault());
+        }
+
+        // File must be closed or else output is blank
+        loginOutputFile.close();
     }
 
     @Override

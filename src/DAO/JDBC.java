@@ -12,13 +12,13 @@ public abstract class JDBC {
     private static final String driver = "com.mysql.cj.jdbc.Driver"; // Driver reference
     private static final String userName = "sqlUser"; // Username
     private static String password = "Passw0rd!"; // Password
-    public static Connection dbConn;  // Connection Interface
+    public static Connection JDBCconnection;  // Connection Interface
 
     public static void openConnection()
     {
         try {
             Class.forName(driver); // Locate Driver
-            dbConn = DriverManager.getConnection(jdbcUrl, userName, password); // Reference Connection object
+            JDBCconnection = DriverManager.getConnection(jdbcUrl, userName, password);
             System.out.println("Connection successful!");
         }
         catch(Exception e)
@@ -29,7 +29,7 @@ public abstract class JDBC {
 
     public static void closeConnection() {
         try {
-            dbConn.close();
+            JDBCconnection.close();
             System.out.println("Connection closed!");
         }
         catch(Exception e)
@@ -38,8 +38,6 @@ public abstract class JDBC {
         }
     }
 
-    // getDatabase() is used to get a database after openConnection() is called in main, improves the speed of database access
-    public static Connection getDatabase() {
-        return dbConn;
-    }
+    // OUTDATED getDatabase() is used to get a database after openConnection() is called in main, improves the speed of database access
+    // public static Connection getDatabase() {return dbConn;}
 }
