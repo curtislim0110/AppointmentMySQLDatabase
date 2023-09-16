@@ -25,9 +25,6 @@ import static DAO.usersDAO.usersLogin;
 
 public class LoginScreenController implements Initializable {
 
-    private Stage stage;
-    private Parent scene;
-
     @FXML
     private TextField localtionlabeltxt;
 
@@ -53,7 +50,7 @@ public class LoginScreenController implements Initializable {
     private TextField usernametxt;
 
 
-    public void onActionLoginButton(ActionEvent actionEvent) throws IOException {
+    public void onActionLoginButton(ActionEvent event) throws IOException {
 
         ResourceBundle languageBundle = ResourceBundle.getBundle("language/language", Locale.getDefault());
 
@@ -89,7 +86,7 @@ public class LoginScreenController implements Initializable {
 
             Parent root = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
             Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
         }
