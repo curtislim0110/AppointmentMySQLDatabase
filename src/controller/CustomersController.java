@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CustomersController implements Initializable{
+public class CustomersController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> columnAddress;
