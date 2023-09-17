@@ -19,7 +19,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <TableView fx:id="tableCustomers" layoutX="72.0" layoutY="67.0" prefHeight="317.0" prefWidth="1005.0">
+      <TableView fx:id="tableCustomers" layoutX="72.0" layoutY="67.0" onMouseClicked="#onMouseClickTable" prefHeight="317.0" prefWidth="1005.0">
         <columns>
           <TableColumn fx:id="columnID" prefWidth="62.0" text="ID" />
           <TableColumn fx:id="columnName" prefWidth="151.0" text="Name" />

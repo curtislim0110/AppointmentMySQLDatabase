@@ -72,6 +72,32 @@ public class customersDAO {
         }
     }
 
+    public static String getDivisionName(int divisionID) {
+        try {
+            String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = " + divisionID;
+            PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
+            ResultSet rs = psSELECT.executeQuery();
+            rs.next();
+            String divisionName = rs.getString("Division");
+            return divisionName;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static int getCountryID(int divisionID) {
+        try {
+            String sql = "SELECT Country_ID FROM first_level_divisions WHERE Division_ID = " + divisionID;
+            PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
+            ResultSet rs = psSELECT.executeQuery();
+            rs.next();
+            int countryID = rs.getInt("Country_ID");
+            return countryID;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 }

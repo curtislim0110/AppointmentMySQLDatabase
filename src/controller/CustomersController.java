@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.countries;
 import model.customers;
@@ -84,53 +85,61 @@ public class CustomersController implements Initializable{
 
             // Display custom error message using a lambda function if there are any blank textboxes
             if (customerName.isEmpty()) {
-                currentError.lambdaAlertMethod(1);
+                currentAlert.lambdaAlertMethod(1);
             }
             else if (address.isEmpty()) {
-                currentError.lambdaAlertMethod(2);
+                currentAlert.lambdaAlertMethod(2);
             }
             else if (postal.isEmpty()) {
-                currentError.lambdaAlertMethod(3);
+                currentAlert.lambdaAlertMethod(3);
             }
             else if (phone.isEmpty()) {
-                currentError.lambdaAlertMethod(4);
+                currentAlert.lambdaAlertMethod(4);
             }
             // if no country is selected
             else if (comboboxCountry.getValue() == null) {
-                currentError.lambdaAlertMethod(5);
+                currentAlert.lambdaAlertMethod(5);
             }
             // if no first level division is selected
             else if (currentDivision == null) {
-                currentError.lambdaAlertMethod(6);
+                currentAlert.lambdaAlertMethod(6);
             }
-            // if there are no blank textboxes or missing selections, create a new customer
+            // if there are no blank textboxes or missing selections, create a new customer and refresh list
             else {
                 customersDAO.addCustomer(customerName, address, postal, phone, currentDivision.getDivisionID());
-                currentError.lambdaAlertMethod(7);
+                currentAlert.lambdaAlertMethod(7);
                 tableCustomers.setItems(customersDAO.getAllCustomers());
-
-                //customer list not sorting by customerID
             }
-
-
-        }catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
-    @FXML
-    void onActionDelete(ActionEvent event) {
 
-    }
 
     @FXML
     void onActionUpdate(ActionEvent event) {
-
-
-
-        // use combobox.setvalue to set value when updating a customer
+        try {
+            if (tableCustomers.getSelectionModel().getSelectedItem() == null) {
+                currentAlert.lambdaAlertMethod(8);
+            }
+            else {
+                customers currentCustomer = tableCustomers.getSelectionModel().getSelectedItem();
+                System.out.println(currentCustomer.getCustomerName());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+
+    @FXML
+    void onActionDelete(ActionEvent event) {
+        // need to update to delete customer-associated appointments. for now just deleting a customer
+    }
+
+
+
 
     @FXML
     void onActionMainMenu(ActionEvent event) throws IOException {
@@ -141,6 +150,37 @@ public class CustomersController implements Initializable{
         stage.show();
     }
 
+
+    // Clicking a row in the tableview will load the object's data into textboxes and combo boxes
+    @FXML
+    void onMouseClickTable(MouseEvent event) {
+        if (tableCustomers.getSelectionModel().getSelectedItem() == null) {
+            // do nothing if an empty space is clicked on the table
+        }
+        // otherwise, load the selected row of data from the table into the textboxes
+        else {
+            customers mouseclickCustomer = tableCustomers.getSelectionModel().getSelectedItem();
+            textCustomerID.setText(Integer.toString(mouseclickCustomer.getCustomerID()));
+            textCustomerName.setText(mouseclickCustomer.getCustomerName());
+            textAddress.setText(mouseclickCustomer.getCustomerAddress());
+            textPhone.setText(mouseclickCustomer.getCustomerPhone());
+            textPostal.setText(mouseclickCustomer.getCustomerPostal());
+
+            // create temporary countries and firstleveldivisions objects to load the combo boxes
+            countries currentcountry = new countries(mouseclickCustomer.getCountryID(), mouseclickCustomer.getCountryName());
+            comboboxCountry.setValue(currentcountry);
+
+            String currrentDivisionName = customersDAO.getDivisionName(mouseclickCustomer.getFirstDivisionID());
+            int currentcountryID = customersDAO.getCountryID(mouseclickCustomer.getFirstDivisionID());
+            firstleveldivisions currentfirstlevel = new firstleveldivisions(mouseclickCustomer.getFirstDivisionID(), currrentDivisionName, currentcountryID);
+            comboboxFirstLevel.setValue(currentfirstlevel);
+
+        }
+    }
+
+    /**
+     * Sets the first division combo box list based on the country selected
+     */
     @FXML
     void onActionCountryComboBox(ActionEvent event) {
         countries currentcountry = comboboxCountry.getValue();
@@ -150,48 +190,54 @@ public class CustomersController implements Initializable{
     /**
      * Lambda Expression, interface for lambdaAlert is in /helper/lambdaAlert
      */
-    lambdaAlert currentError = e -> {
+    lambdaAlert currentAlert = e -> {
         if (e == 1) {
-            Alert alertError = new Alert(Alert.AlertType.ERROR);
-            alertError.setTitle("Error");
-            alertError.setContentText("Enter Name");
-            alertError.showAndWait();
+            Alert newAlert = new Alert(Alert.AlertType.ERROR);
+            newAlert.setTitle("Error");
+            newAlert.setContentText("Enter Name");
+            newAlert.showAndWait();
         }
         else if (e == 2) {
-            Alert alertError = new Alert(Alert.AlertType.ERROR);
-            alertError.setTitle("Error");
-            alertError.setContentText("Enter Address");
-            alertError.showAndWait();
+            Alert newAlert = new Alert(Alert.AlertType.ERROR);
+            newAlert.setTitle("Error");
+            newAlert.setContentText("Enter Address");
+            newAlert.showAndWait();
         }
         else if (e == 3) {
-            Alert alertError = new Alert(Alert.AlertType.ERROR);
-            alertError.setTitle("Error");
-            alertError.setContentText("Enter Postal");
-            alertError.showAndWait();
+            Alert newAlert = new Alert(Alert.AlertType.ERROR);
+            newAlert.setTitle("Error");
+            newAlert.setContentText("Enter Postal");
+            newAlert.showAndWait();
         }
         else if (e == 4) {
-            Alert alertError = new Alert(Alert.AlertType.ERROR);
-            alertError.setTitle("Error");
-            alertError.setContentText("Enter Phone");
-            alertError.showAndWait();
+            Alert newAlert = new Alert(Alert.AlertType.ERROR);
+            newAlert.setTitle("Error");
+            newAlert.setContentText("Enter Phone");
+            newAlert.showAndWait();
         }
         else if (e == 5) {
-            Alert alertError = new Alert(Alert.AlertType.ERROR);
-            alertError.setTitle("Error");
-            alertError.setContentText("Select Country");
-            alertError.showAndWait();
+            Alert newAlert = new Alert(Alert.AlertType.ERROR);
+            newAlert.setTitle("Error");
+            newAlert.setContentText("Select Country");
+            newAlert.showAndWait();
         }
         else if (e == 6) {
-            Alert alertError = new Alert(Alert.AlertType.ERROR);
-            alertError.setTitle("Error");
-            alertError.setContentText("Select First Level Division");
-            alertError.showAndWait();
+            Alert newAlert = new Alert(Alert.AlertType.ERROR);
+            newAlert.setTitle("Error");
+            newAlert.setContentText("Select First Level Division");
+            newAlert.showAndWait();
         }
         else if (e == 7) {
-            Alert alertError = new Alert(Alert.AlertType.INFORMATION);
-            alertError.setTitle("Success");
-            alertError.setContentText("New customer added");
-            alertError.showAndWait();
+            Alert newAlert = new Alert(Alert.AlertType.INFORMATION);
+            newAlert.setTitle("Success");
+            newAlert.setContentText("New customer added");
+            newAlert.showAndWait();
+        }
+        else if (e == 8) {
+            Alert newAlert = new Alert(Alert.AlertType.ERROR);
+            newAlert.setTitle("Error");
+            newAlert.setContentText("No customer was selected to update");
+            newAlert.showAndWait();
         }
     };
 
@@ -209,6 +255,9 @@ public class CustomersController implements Initializable{
         columncountry.setCellValueFactory(new PropertyValueFactory<>("countryName"));
 
         tableCustomers.setItems(customersDAO.getAllCustomers());
+
+        // defunct: used SQL SORT BY query for customer data instead of trying to sort tableview
+        // columnID.setSortType(TableColumn.SortType.ASCENDING);
 
         // load comboboxes with country and first level division data
         comboboxCountry.setItems(countriesDAO.getAllCountries());
