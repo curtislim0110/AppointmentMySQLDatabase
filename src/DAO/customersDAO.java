@@ -47,7 +47,7 @@ public class customersDAO {
 
     public static void addCustomer(String customerName, String address, String postal, String phone, int firstDivisionID) {
         try {
-            String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Create_Date, Last_Update, Division_ID) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement psINSERT = JDBC.JDBCconnection.prepareStatement(sql);
             psINSERT.setString(1, customerName);
             psINSERT.setString(2, address);

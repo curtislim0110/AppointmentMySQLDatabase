@@ -3,7 +3,7 @@ package controller;
 import DAO.countriesDAO;
 import DAO.customersDAO;
 import DAO.firstleveldivisionsDAO;
-import helper.lambdaErrorAlert;
+import helper.lambdaAlert;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +20,6 @@ import model.firstleveldivisions;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.ZoneId;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class CustomersController implements Initializable{
@@ -80,31 +78,36 @@ public class CustomersController implements Initializable{
             String address = textAddress.getText();
             String postal = textPostal.getText();
             String phone = textPhone.getText();
+            firstleveldivisions currentDivision = comboboxFirstLevel.getValue();
 
             // Display custom error message using a lambda function if there are any blank textboxes
             if (customerName.isEmpty()) {
-                currentError.lambdaError(1);
+                currentError.lambdaAlertMethod(1);
             }
             else if (address.isEmpty()) {
-                currentError.lambdaError(2);
+                currentError.lambdaAlertMethod(2);
             }
             else if (postal.isEmpty()) {
-                currentError.lambdaError(3);
+                currentError.lambdaAlertMethod(3);
             }
             else if (phone.isEmpty()) {
-                currentError.lambdaError(4);
+                currentError.lambdaAlertMethod(4);
             }
             // if no country is selected
             else if (comboboxCountry.getValue() == null) {
-                currentError.lambdaError(5);
+                currentError.lambdaAlertMethod(5);
             }
             // if no first level division is selected
-            else if (comboboxFirstLevel.getValue() == null) {
-                currentError.lambdaError(6);
+            else if (currentDivision == null) {
+                currentError.lambdaAlertMethod(6);
             }
             // if there are no blank textboxes or missing selections, create a new customer
             else {
-                System.out.println("Adding new customer!");
+                customersDAO.addCustomer(customerName, address, postal, phone, currentDivision.getDivisionID());
+                currentError.lambdaAlertMethod(7);
+                tableCustomers.setItems(customersDAO.getAllCustomers());
+
+                //customer list not sorting by customerID
             }
 
 
@@ -143,9 +146,9 @@ public class CustomersController implements Initializable{
     }
 
     /**
-     * Lambda Expression, interface for lambdaErrorAlert is in /helper/lambdaErrorAlert
+     * Lambda Expression, interface for lambdaAlert is in /helper/lambdaAlert
      */
-    lambdaErrorAlert currentError = e -> {
+    lambdaAlert currentError = e -> {
         if (e == 1) {
             Alert alertError = new Alert(Alert.AlertType.ERROR);
             alertError.setTitle("Error");
@@ -180,6 +183,12 @@ public class CustomersController implements Initializable{
             Alert alertError = new Alert(Alert.AlertType.ERROR);
             alertError.setTitle("Error");
             alertError.setContentText("Select First Level Division");
+            alertError.showAndWait();
+        }
+        else if (e == 7) {
+            Alert alertError = new Alert(Alert.AlertType.INFORMATION);
+            alertError.setTitle("Success");
+            alertError.setContentText("New customer added");
             alertError.showAndWait();
         }
     };
