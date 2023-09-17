@@ -12,6 +12,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.countries;
@@ -197,7 +199,7 @@ public class CustomersController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         // when opening customers menu, display all customers in database joined with their first division name
-        tableCustomers.setItems(customersDAO.getAllCustomers());
+
         columnID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         columnName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         columnAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
@@ -205,6 +207,8 @@ public class CustomersController implements Initializable{
         columnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
         columnFirstLevel.setCellValueFactory(new PropertyValueFactory<>("firstDivisionName"));
         columncountry.setCellValueFactory(new PropertyValueFactory<>("countryName"));
+
+        tableCustomers.setItems(customersDAO.getAllCustomers());
 
         // load comboboxes with country and first level division data
         comboboxCountry.setItems(countriesDAO.getAllCountries());

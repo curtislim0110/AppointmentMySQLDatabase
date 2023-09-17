@@ -17,7 +17,8 @@ public class customersDAO {
         try {
             String sql = "SELECT * FROM customers, first_level_divisions, countries " +
                     "WHERE customers.Division_ID = first_level_divisions.Division_ID " +
-                    "AND first_level_divisions.Country_ID = countries.Country_ID";
+                    "AND first_level_divisions.Country_ID = countries.Country_ID " +
+                    "ORDER BY customers.Customer_ID";
 
             PreparedStatement ps = JDBC.JDBCconnection.prepareStatement(sql);
             ResultSet rsGetAll = ps.executeQuery();
