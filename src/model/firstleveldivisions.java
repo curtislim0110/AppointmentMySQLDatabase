@@ -18,4 +18,17 @@ public class firstleveldivisions {
     public int getCountryID() { return countryID; }
 
 
+    /**
+     * this toString method overrides the default toString method, which returns divisionName instead
+     * of a pointer reference to a hash code when firstleveldivisions is displayed in a combo box
+     *
+     * @return divisionName
+     */
+    @Override
+    public String toString() {
+        return (divisionName);
+    }
+
+
+
 }

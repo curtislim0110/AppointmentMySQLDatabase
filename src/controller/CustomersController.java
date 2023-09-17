@@ -1,5 +1,6 @@
 package controller;
 
+import DAO.countriesDAO;
 import DAO.customersDAO;
 import helper.lambdaErrorAlert;
 import javafx.event.ActionEvent;
@@ -167,6 +168,7 @@ public class CustomersController implements Initializable{
         columncountry.setCellValueFactory(new PropertyValueFactory<>("countryName"));
 
         // load comboboxes with country and first level division data
+        comboboxCountry.setItems(countriesDAO.getAllCountries());
 
 
     }
