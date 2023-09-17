@@ -1,5 +1,6 @@
 package controller;
 
+import DAO.customersDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,10 +25,13 @@ public class AppointmentsController implements Initializable {
     private TableColumn<?, ?> columnAppointmentID;
 
     @FXML
-    private TableColumn<?, ?> columnContactID;
+    private TableColumn<?, ?> columnContactName;
 
     @FXML
     private TableColumn<?, ?> columnCustomerID;
+
+    @FXML
+    private TableColumn<?, ?> columnDescription;
 
     @FXML
     private TableColumn<?, ?> columnEndTime;
@@ -47,7 +52,7 @@ public class AppointmentsController implements Initializable {
     private TableColumn<?, ?> columnUserID;
 
     @FXML
-    private TableView<?> tableCustomers;
+    private TableView<?> tableAppointments;
 
     @FXML
     void onActionMainMenu(ActionEvent event) throws IOException {
@@ -58,9 +63,21 @@ public class AppointmentsController implements Initializable {
         stage.show();
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        columnAppointmentID.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
+        columnTitle.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
+        columnDescription.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
+        columnLocation.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
+        columnType.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
+        columnStartTime.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
+        columnEndTime.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
+        columnCustomerID.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
+        columnUserID.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
+        columnContactName.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
+
+        tableAppointments.setItems(appointmentsDAO.getAllAppointments());
 
     }
 
