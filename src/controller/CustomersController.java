@@ -116,7 +116,6 @@ public class CustomersController implements Initializable{
     }
 
 
-
     @FXML
     void onActionUpdate(ActionEvent event) {
         try {
@@ -124,8 +123,40 @@ public class CustomersController implements Initializable{
                 currentAlert.lambdaAlertMethod(8);
             }
             else {
-                customers currentCustomer = tableCustomers.getSelectionModel().getSelectedItem();
-                System.out.println(currentCustomer.getCustomerName());
+                // Load data into local variables
+                String customerName = textCustomerName.getText();
+                String address = textAddress.getText();
+                String postal = textPostal.getText();
+                String phone = textPhone.getText();
+                firstleveldivisions currentDivision = comboboxFirstLevel.getValue();
+
+                // Display custom error message using a lambda function if there are any blank textboxes
+                if (customerName.isEmpty()) {
+                    currentAlert.lambdaAlertMethod(1);
+                }
+                else if (address.isEmpty()) {
+                    currentAlert.lambdaAlertMethod(2);
+                }
+                else if (postal.isEmpty()) {
+                    currentAlert.lambdaAlertMethod(3);
+                }
+                else if (phone.isEmpty()) {
+                    currentAlert.lambdaAlertMethod(4);
+                }
+                // if no country is selected
+                else if (comboboxCountry.getValue() == null) {
+                    currentAlert.lambdaAlertMethod(5);
+                }
+                // if no first level division is selected
+                else if (currentDivision == null) {
+                    currentAlert.lambdaAlertMethod(6);
+                }
+                // if there are no blank textboxes or missing selections, create a new customer and refresh list
+                else {
+                    customersDAO.updateCustomer(Integer.parseInt(textCustomerID.getText()),customerName, address, postal, phone, currentDivision.getDivisionID());
+                    currentAlert.lambdaAlertMethod(9);
+                    tableCustomers.setItems(customersDAO.getAllCustomers());
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,9 +167,18 @@ public class CustomersController implements Initializable{
     @FXML
     void onActionDelete(ActionEvent event) {
         // need to update to delete customer-associated appointments. for now just deleting a customer
+
+        // Error message if no customer selected for deletion
+        if (tableCustomers.getSelectionModel().getSelectedItem() == null) {
+            currentAlert.lambdaAlertMethod(10);
+        }
+        else {
+            customersDAO.deleteCustomer(tableCustomers.getSelectionModel().getSelectedItem().getCustomerID());
+            currentAlert.lambdaAlertMethod(11);
+            tableCustomers.setItems(customersDAO.getAllCustomers());
+        }
+
     }
-
-
 
 
     @FXML
@@ -167,6 +207,7 @@ public class CustomersController implements Initializable{
             textPostal.setText(mouseclickCustomer.getCustomerPostal());
 
             // create temporary countries and firstleveldivisions objects to load the combo boxes
+
             countries currentcountry = new countries(mouseclickCustomer.getCountryID(), mouseclickCustomer.getCountryName());
             comboboxCountry.setValue(currentcountry);
 
@@ -183,6 +224,7 @@ public class CustomersController implements Initializable{
      */
     @FXML
     void onActionCountryComboBox(ActionEvent event) {
+        comboboxFirstLevel.setValue(null);
         countries currentcountry = comboboxCountry.getValue();
         comboboxFirstLevel.setItems(firstleveldivisionsDAO.showFirstLevels(currentcountry.getCountryID()));
     }
@@ -237,6 +279,24 @@ public class CustomersController implements Initializable{
             Alert newAlert = new Alert(Alert.AlertType.ERROR);
             newAlert.setTitle("Error");
             newAlert.setContentText("No customer was selected to update");
+            newAlert.showAndWait();
+        }
+        else if (e == 9) {
+            Alert newAlert = new Alert(Alert.AlertType.INFORMATION);
+            newAlert.setTitle("Success");
+            newAlert.setContentText("Updated customer data");
+            newAlert.showAndWait();
+        }
+        else if (e == 10) {
+            Alert newAlert = new Alert(Alert.AlertType.ERROR);
+            newAlert.setTitle("Error");
+            newAlert.setContentText("No customer was selected to delete");
+            newAlert.showAndWait();
+        }
+        else if (e == 11) {
+            Alert newAlert = new Alert(Alert.AlertType.INFORMATION);
+            newAlert.setTitle("Success");
+            newAlert.setContentText("Customer deleted");
             newAlert.showAndWait();
         }
     };

@@ -99,5 +99,21 @@ public class customersDAO {
         }
     }
 
+    public static void updateCustomer(int customerID, String customerName, String customerAddress, String customerPostalCode,
+                                      String customerPhone, int divisionID) {
+        try {
+            String sql = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?";
+            PreparedStatement psUPDATE = JDBC.JDBCconnection.prepareStatement(sql);
+            psUPDATE.setString(1, customerName);
+            psUPDATE.setString(2, customerAddress);
+            psUPDATE.setString(3, customerPostalCode);
+            psUPDATE.setString(4, customerPhone);
+            psUPDATE.setInt(5, divisionID);
+            psUPDATE.setInt(6, customerID);
+            psUPDATE.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
