@@ -16,8 +16,8 @@ public class usersDAO {
         try {
             // open database connection and select all users with SQL statement
             String sql = "SELECT * FROM users";
-            PreparedStatement ps = JDBC.JDBCconnection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
+            ResultSet rs = psSELECT.executeQuery();
 
             // load list of user id, username, and password from Users table
             while (rs.next()) {

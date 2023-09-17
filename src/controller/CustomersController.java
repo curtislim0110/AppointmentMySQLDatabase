@@ -73,7 +73,7 @@ public class CustomersController implements Initializable{
     void onActionAdd(ActionEvent event) {
 
         try {
-            // Load textbox contents into local variables
+            // Load datas into local variables
             String customerName = textCustomerName.getText();
             String address = textAddress.getText();
             String postal = textPostal.getText();
@@ -165,6 +165,9 @@ public class CustomersController implements Initializable{
         columnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
         columnFirstLevel.setCellValueFactory(new PropertyValueFactory<>("firstDivisionName"));
         columncountry.setCellValueFactory(new PropertyValueFactory<>("countryName"));
+
+        // load comboboxes with country and first level division data
+
 
     }
 }
