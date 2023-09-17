@@ -53,7 +53,7 @@
             <Label text="Counrty" GridPane.rowIndex="5" />
             <Label text="First Level" GridPane.rowIndex="6" />
             <TextField fx:id="textCustomerID" disable="true" editable="false" promptText="auto-generated" GridPane.columnIndex="1" />
-            <TextField fx:id="textCustomerNAme" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="textCustomerName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="textAddress" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="textPostal" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="textPhone" GridPane.columnIndex="1" GridPane.rowIndex="4" />

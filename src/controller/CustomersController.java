@@ -9,13 +9,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.countries;
 import model.customers;
+import model.firstleveldivisions;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,7 +22,7 @@ import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class CustomersController implements Initializable, lambdaErrorAlert {
+public class CustomersController implements Initializable{
 
     @FXML
     private TableColumn<?, ?> columnAddress;
@@ -47,10 +46,10 @@ public class CustomersController implements Initializable, lambdaErrorAlert {
     private TableColumn<?, ?> columnPostal;
 
     @FXML
-    private ComboBox<?> comboboxCountry;
+    private ComboBox<countries> comboboxCountry;
 
     @FXML
-    private ComboBox<?> comboboxFirstLevel;
+    private ComboBox<firstleveldivisions> comboboxFirstLevel;
 
     @FXML
     private TableView<customers> tableCustomers;
@@ -72,25 +71,35 @@ public class CustomersController implements Initializable, lambdaErrorAlert {
 
     @FXML
     void onActionAdd(ActionEvent event) {
-        System.out.println("Add customer clicked!");
 
         try {
+            // Load textbox contents into local variables
+            String customerName = textCustomerName.getText();
+            String address = textAddress.getText();
+            String postal = textPostal.getText();
+            String phone = textPhone.getText();
 
-            // LambdaErrorMsg is used to generate unique error lambda messages
-            int LambdaErrorNumber = 1;
-
-            // String customerName = textCustomerName.getText();
-            // String address = textAddress.getText();
-            // String postal = textPostal.getText();
-            // String phone = textPhone.getText();
-
-            // Display custom error message using a lambda function if there are blank textboxes
-            lambdaError(LambdaErrorNumber);
-
-            if(LambdaErrorNumber == 0) {
-                System.out.println("Added new customer!");
-
+            // Display custom error message using a lambda function if there are any blank textboxes
+            if (customerName.isEmpty()) {
+                currentError.lambdaError(1);
             }
+            else if (address.isEmpty()) {
+                currentError.lambdaError(2);
+            }
+            else if (postal.isEmpty()) {
+                currentError.lambdaError(3);
+            }
+            else if (phone.isEmpty()) {
+                currentError.lambdaError(4);
+            }
+
+
+
+            else {
+                System.out.println("Added new customer!");
+            }
+
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -116,10 +125,33 @@ public class CustomersController implements Initializable, lambdaErrorAlert {
         stage.show();
     }
 
-    public void lambdaError(int a) {
-        System.out.println("lambda test");
-
-    }
+    // Lambda expression generating error messages on incorrect input
+    lambdaErrorAlert currentError = e -> {
+        if (e == 1) {
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Error");
+            alertError.setContentText("Enter Name");
+            alertError.showAndWait();
+        }
+        if (e == 2) {
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Error");
+            alertError.setContentText("Enter Address");
+            alertError.showAndWait();
+        }
+        if (e == 3) {
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Error");
+            alertError.setContentText("Enter Postal");
+            alertError.showAndWait();
+        }
+        if (e == 4) {
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Error");
+            alertError.setContentText("Enter Phone");
+            alertError.showAndWait();
+        }
+    };
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
