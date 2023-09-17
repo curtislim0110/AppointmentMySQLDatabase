@@ -1,6 +1,7 @@
 package controller;
 
 import DAO.customersDAO;
+import helper.lambdaErrorAlert;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +23,7 @@ import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class CustomersController implements Initializable {
+public class CustomersController implements Initializable, lambdaErrorAlert {
 
     @FXML
     private TableColumn<?, ?> columnAddress;
@@ -61,7 +62,7 @@ public class CustomersController implements Initializable {
     private TextField textCustomerID;
 
     @FXML
-    private TextField textCustomerNAme;
+    private TextField textCustomerName;
 
     @FXML
     private TextField textPhone;
@@ -71,6 +72,28 @@ public class CustomersController implements Initializable {
 
     @FXML
     void onActionAdd(ActionEvent event) {
+        System.out.println("Add customer clicked!");
+
+        try {
+
+            // LambdaErrorMsg is used to generate unique error lambda messages
+            int LambdaErrorNumber = 1;
+
+            // String customerName = textCustomerName.getText();
+            // String address = textAddress.getText();
+            // String postal = textPostal.getText();
+            // String phone = textPhone.getText();
+
+            // Display custom error message using a lambda function if there are blank textboxes
+            lambdaError(LambdaErrorNumber);
+
+            if(LambdaErrorNumber == 0) {
+                System.out.println("Added new customer!");
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -91,6 +114,11 @@ public class CustomersController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void lambdaError(int a) {
+        System.out.println("lambda test");
+
     }
 
     @Override
