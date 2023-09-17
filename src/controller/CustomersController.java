@@ -2,6 +2,7 @@ package controller;
 
 import DAO.countriesDAO;
 import DAO.customersDAO;
+import DAO.firstleveldivisionsDAO;
 import helper.lambdaErrorAlert;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -74,7 +75,7 @@ public class CustomersController implements Initializable{
     void onActionAdd(ActionEvent event) {
 
         try {
-            // Load datas into local variables
+            // Load data into local variables
             String customerName = textCustomerName.getText();
             String address = textAddress.getText();
             String postal = textPostal.getText();
@@ -93,11 +94,17 @@ public class CustomersController implements Initializable{
             else if (phone.isEmpty()) {
                 currentError.lambdaError(4);
             }
-
-
-
+            // if no country is selected
+            else if (comboboxCountry.getValue() == null) {
+                currentError.lambdaError(5);
+            }
+            // if no first level division is selected
+            else if (comboboxFirstLevel.getValue() == null) {
+                currentError.lambdaError(6);
+            }
+            // if there are no blank textboxes or missing selections, create a new customer
             else {
-                System.out.println("Added new customer!");
+                System.out.println("Adding new customer!");
             }
 
 
@@ -115,6 +122,9 @@ public class CustomersController implements Initializable{
     @FXML
     void onActionUpdate(ActionEvent event) {
 
+
+
+        // use combobox.setvalue to set value when updating a customer
     }
 
     @FXML
@@ -126,7 +136,15 @@ public class CustomersController implements Initializable{
         stage.show();
     }
 
-    // Lambda expression generating error messages on incorrect input
+    @FXML
+    void onActionCountryComboBox(ActionEvent event) {
+        countries currentcountry = comboboxCountry.getValue();
+        comboboxFirstLevel.setItems(firstleveldivisionsDAO.showFirstLevels(currentcountry.getCountryID()));
+    }
+
+    /**
+     * Lambda Expression, interface for lambdaErrorAlert is in /helper/lambdaErrorAlert
+     */
     lambdaErrorAlert currentError = e -> {
         if (e == 1) {
             Alert alertError = new Alert(Alert.AlertType.ERROR);
@@ -134,22 +152,34 @@ public class CustomersController implements Initializable{
             alertError.setContentText("Enter Name");
             alertError.showAndWait();
         }
-        if (e == 2) {
+        else if (e == 2) {
             Alert alertError = new Alert(Alert.AlertType.ERROR);
             alertError.setTitle("Error");
             alertError.setContentText("Enter Address");
             alertError.showAndWait();
         }
-        if (e == 3) {
+        else if (e == 3) {
             Alert alertError = new Alert(Alert.AlertType.ERROR);
             alertError.setTitle("Error");
             alertError.setContentText("Enter Postal");
             alertError.showAndWait();
         }
-        if (e == 4) {
+        else if (e == 4) {
             Alert alertError = new Alert(Alert.AlertType.ERROR);
             alertError.setTitle("Error");
             alertError.setContentText("Enter Phone");
+            alertError.showAndWait();
+        }
+        else if (e == 5) {
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Error");
+            alertError.setContentText("Select Country");
+            alertError.showAndWait();
+        }
+        else if (e == 6) {
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Error");
+            alertError.setContentText("Select First Level Division");
             alertError.showAndWait();
         }
     };
@@ -169,6 +199,13 @@ public class CustomersController implements Initializable{
 
         // load comboboxes with country and first level division data
         comboboxCountry.setItems(countriesDAO.getAllCountries());
+        comboboxCountry.setPromptText("Select Country");
+
+        // divisions must be loaded dynamically when the country box is selected, not initialized
+        // comboboxFirstLevel.setItems(firstleveldivisionsDAO.getAllFirstLevelDivisions());
+        comboboxFirstLevel.setPromptText("Select First Level");
+
+
 
 
     }
