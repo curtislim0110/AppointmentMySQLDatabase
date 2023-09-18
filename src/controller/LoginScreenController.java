@@ -18,6 +18,7 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -101,11 +102,11 @@ public class LoginScreenController implements Initializable {
         PrintWriter loginOutputFile = new PrintWriter(currentFileWriter);
 
         if (loginBooleanType) {
-            loginOutputFile.println(usernametxt.getText() + " had a successful login at " + LocalDateTime.now() + " " + ZoneId.systemDefault());
+            loginOutputFile.println(usernametxt.getText() + " had a successful login at " + ZonedDateTime.now().toInstant() + " UTC");
         }
 
         if (!loginBooleanType) {
-            loginOutputFile.println(usernametxt.getText() + " had a failed login at " + LocalDateTime.now() + " " + ZoneId.systemDefault());
+            loginOutputFile.println(usernametxt.getText() + " had a failed login at " + ZonedDateTime.now().toInstant() + " UTC");
         }
 
         // File must be closed or else output text file is blank
