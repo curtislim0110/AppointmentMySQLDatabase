@@ -77,7 +77,7 @@ public class AppointmentsController implements Initializable {
         columnUserID.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
         columnContactName.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
 
-        tableAppointments.setItems(appointmentsDAO.getAllAppointments());
+        // tableAppointments.setItems(appointmentsDAO.getAllAppointments());
 
     }
 
