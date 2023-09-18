@@ -1,6 +1,5 @@
 package controller;
 
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +22,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static DAO.usersDAO.usersLogin;
+import static helper.timeConversionHelper.loginactivityUTC;
 
 public class LoginScreenController implements Initializable {
 
@@ -102,11 +102,11 @@ public class LoginScreenController implements Initializable {
         PrintWriter loginOutputFile = new PrintWriter(currentFileWriter);
 
         if (loginBooleanType) {
-            loginOutputFile.println(usernametxt.getText() + " had a successful login at " + ZonedDateTime.now().toInstant() + " UTC");
+            loginOutputFile.println(usernametxt.getText() + " had a successful login at " + ZonedDateTime.now(ZoneId.of("UTC")));
         }
 
         if (!loginBooleanType) {
-            loginOutputFile.println(usernametxt.getText() + " had a failed login at " + ZonedDateTime.now().toInstant() + " UTC");
+            loginOutputFile.println(usernametxt.getText() + " had a failed login at " + ZonedDateTime.now(ZoneId.of("UTC")));
         }
 
         // File must be closed or else output text file is blank

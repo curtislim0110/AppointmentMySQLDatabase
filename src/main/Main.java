@@ -1,3 +1,5 @@
+package main;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +23,6 @@ public class Main extends Application {
 
         // Commented next line is for testing system default language in french
         // Locale.setDefault(new Locale("fr"));
-
         Locale new_locale = Locale.getDefault();
         System.out.println("Current system locale: " + new_locale);
 
