@@ -1,5 +1,6 @@
 package controller;
 
+import DAO.appointmentsDAO;
 import DAO.customersDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.appointments;
 
 import java.io.IOException;
 import java.net.URL;
@@ -52,7 +54,7 @@ public class AppointmentsController implements Initializable {
     private TableColumn<?, ?> columnUserID;
 
     @FXML
-    private TableView<?> tableAppointments;
+    private TableView<appointments> tableAppointments;
 
     @FXML
     void onActionMainMenu(ActionEvent event) throws IOException {
@@ -66,18 +68,18 @@ public class AppointmentsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        columnAppointmentID.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
-        columnTitle.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
-        columnDescription.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
-        columnLocation.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
-        columnType.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
-        columnStartTime.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
-        columnEndTime.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
-        columnCustomerID.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
-        columnUserID.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
-        columnContactName.setCellValueFactory(new PropertyValueFactory<>("xxxxx"));
+        columnAppointmentID.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        columnTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        columnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        columnLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
+        columnType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        columnStartTime.setCellValueFactory(new PropertyValueFactory<>("appointmentStart"));
+        columnEndTime.setCellValueFactory(new PropertyValueFactory<>("appointmentEnd"));
+        columnCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        columnUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
+        columnContactName.setCellValueFactory(new PropertyValueFactory<>("contactName"));
 
-        // tableAppointments.setItems(appointmentsDAO.getAllAppointments());
+        tableAppointments.setItems(appointmentsDAO.getAllAppointments());
 
     }
 

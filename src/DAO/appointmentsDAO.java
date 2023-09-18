@@ -10,11 +10,12 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class appointmentsDAO {
-    public static ObservableList<appointments> getAppointmentList() {
+    public static ObservableList<appointments> getAllAppointments() {
         ObservableList<appointments> appointmentList = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT * FROM appointments" +
+            String sql = "SELECT * FROM appointments " +
                     "INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID " +
+                    "INNER JOIN users ON appointments.User_ID = users.User_ID " +
                     "ORDER BY appointments.Appointment_ID";
             PreparedStatement ps = JDBC.JDBCconnection.prepareStatement(sql);
             ResultSet rsGetAll = ps.executeQuery();
@@ -33,9 +34,10 @@ public class appointmentsDAO {
                 int contactID = rsGetAll.getInt("Contact_ID");
 
                 String contactName = rsGetAll.getString("Contact_Name");
+                String userName = rsGetAll.getString("User_Name");
 
                 appointments currentappointment = new appointments(appointmentID, title, description, location, type,
-                        appointmentStart, appointmentEnd, customerID, userID, contactID, contactName);
+                        appointmentStart, appointmentEnd, customerID, userID, contactID, contactName, userName);
                 appointmentList.add(currentappointment);
             }
         } catch (SQLException e) {
@@ -43,4 +45,16 @@ public class appointmentsDAO {
         }
         return appointmentList;
     }
+
+    public static void deleteAppointment(int appointmentID) {
+        try {
+            String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
+            PreparedStatement deleteAppoint = JDBC.JDBCconnection.prepareStatement(sql);
+            deleteAppoint.setInt(1, appointmentID);
+            deleteAppoint.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
