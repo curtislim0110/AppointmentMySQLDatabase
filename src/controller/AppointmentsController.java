@@ -130,33 +130,27 @@ public class AppointmentsController implements Initializable {
             LocalDate endDate = datePickerEnd.getValue();
             LocalTime startTime = comboStartTime.getSelectionModel().getSelectedItem();
             LocalTime endTime = comboEndTime.getSelectionModel().getSelectedItem();
+            LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
+            LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
 
             int customerID = comboCustomerID.getSelectionModel().getSelectedItem().getCustomerID();
             int userID = comboUserID.getSelectionModel().getSelectedItem().getUser_ID();
             int contactID = comboContactName.getSelectionModel().getSelectedItem().getContactID();
 
             // check for overlapping appointments
-            if ( ){
-
-
+            if (appointments.addConflictCheck(customerID, startDateTime, endDateTime)) {
+                // error alerts moved into addConflictCheck method
             }
 
-            // if there are overlapping appointments, add new appointment and refresh table
+            // if there are no overlapping appointments, add new appointment and refresh table
             else {
-                LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
-                LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
                 appointmentsDAO.addAppointment(title, description, location, type, startDateTime, endDateTime, customerID, userID, contactID);
                 tableAppointments.setItems(appointmentsDAO.getAllAppointments());
             }
 
-
-
         }
 
-
-
     }
-
 
     @FXML
     void onActionUpdateAppointment(ActionEvent event) {

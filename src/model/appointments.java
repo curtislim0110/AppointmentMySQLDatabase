@@ -90,23 +90,23 @@ public class appointments {
             // when comparing appointments for overlap, check to see if it is the same customer with a potential overlapping appointment
             // if the customersIDs are different, then no error message is triggered here
             if (customerID == singleAppointment.getCustomerID()) {
-                if ((MstartCheck.isAfter(JstartCheck) || MstartCheck.isEqual(JstartCheck)) && MstartCheck.isBefore(JendCheck)){
+                if ((MstartCheck.isAfter(JstartCheck) || MstartCheck.isEqual(JstartCheck)) && (MstartCheck.isBefore(JendCheck))){
                     Alert newAlert = new Alert(Alert.AlertType.ERROR);
                     newAlert.setTitle("Error");
-                    newAlert.setContentText("At least one existing appointment start time is between the proposed appointment time");
+                    newAlert.setContentText("At least one existing appointment start time is equal to or between the proposed appointment time");
                     newAlert.showAndWait();
                     return true;
                 }
-                else if (MendCheck.isAfter(JstartCheck) && ((MendCheck.isBefore(JendCheck) && MendCheck.isEqual(JendCheck)))) {
+                else if ((MendCheck.isAfter(JstartCheck)) && (MendCheck.isBefore(JendCheck) || MendCheck.isEqual(JendCheck))) {
                     Alert newAlert = new Alert(Alert.AlertType.ERROR);
                     newAlert.setTitle("Error");
-                    newAlert.setContentText("At least one existing appointment end time is between the proposed appointment time");
+                    newAlert.setContentText("At least one existing appointment end time is equal to between the proposed appointment time");
                     newAlert.showAndWait();
                     return true;
-                } else if (MstartCheck.isBefore(JstartCheck) || MstartCheck.isEqual(JstartCheck) && ((MendCheck.isAfter(JendCheck)) || (MendCheck.isEqual(JendCheck)))) {
+                } else if ((MstartCheck.isBefore(JstartCheck) || MstartCheck.isEqual(JstartCheck)) && ((MendCheck.isAfter(JendCheck)) || MendCheck.isEqual(JendCheck))) {
                     Alert newAlert = new Alert(Alert.AlertType.ERROR);
                     newAlert.setTitle("Error");
-                    newAlert.setContentText("At least one existing appointment completely overlaps the proposed appointment time");
+                    newAlert.setContentText("At least one existing appointment equals or overlaps the proposed appointment time");
                     newAlert.showAndWait();
                     return true;
                 }
