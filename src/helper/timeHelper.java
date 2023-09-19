@@ -14,10 +14,9 @@ public class timeHelper {
 
         // Convert starting business hours of 8am EST into a ZonedDateTime object
         ZonedDateTime businesszonetime = ZonedDateTime.of(LocalDate.now(), businessHourStart, ZoneId.of("America/New_York"));
-        System.out.println(businesszonetime);
+
         // Convert business hours ZonedDateTime discovered above into the system default time zone
         ZonedDateTime localzonetime = businesszonetime.withZoneSameInstant(ZoneId.systemDefault());
-        System.out.println(localzonetime);
 
         // find the first hour to start the list of appointment times
         int firstHour = localzonetime.getHour();
