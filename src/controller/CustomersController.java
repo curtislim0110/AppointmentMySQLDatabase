@@ -195,34 +195,41 @@ public class CustomersController implements Initializable {
             }
         }
         // Displays an alert letting the user know they have associated appointments, the quantity and allows them to agree to delete associated appointments as well.
-        /*
+
         if (appointmentCount > 0) {
             Alert associatedAppoint = new Alert(Alert.AlertType.WARNING);
-            associatedAppoint.setTitle("Alert");
-            associatedAppoint.setHeaderText("Alert: " + count + " associated appointment(s).");
-            associatedAppoint.setContentText("There is " + count + " associated appointment(s) for the selected customer.\n\n" +
-                    "Please select OK to delete the associated appointments and customer.\n\n" +
-                    "Otherwise, please press cancel to return to the main screen.");
+            associatedAppoint.setTitle("WARNING");
+            associatedAppoint.setContentText("There are " + appointmentCount + " associated appointments for this customer. Confirm deletion.");
             associatedAppoint.getButtonTypes().clear();
             associatedAppoint.getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.OK);
-            associatedAppoint.getDialogPane().setMinHeight(250);
-            associatedAppoint.getDialogPane().setMinWidth(400);
             associatedAppoint.showAndWait();
+
             if (associatedAppoint.getResult() == ButtonType.OK) {
-                for (Appointment appointment : appointmentList) {
-                    if (appointment.getAppointmentCustomerId() == selectedCustomer)
-                        AppointmentDAO.deleteAppointment(appointment.getAppointmentId());
+                // first delete appointments associated with the customer
+                for (appointments currentappointment : appointmentList) {
+                    if (currentappointment.getCustomerID() == currentCustomerID)
+                        appointmentsDAO.deleteAppointment(currentappointment.getAppointmentID());
                 }
-                CustomerDAO.deleteCustomer(custTable.getSelectionModel().getSelectedItem().getCustomerId());
-                helper.ErrorMsg.confirmation(2);
-                CustomerList = CustomerDAO.getCustomerList();
-                custTable.setItems(CustomerList);
-                custTable.refresh();
-            } else if (associatedAppoint.getResult() == ButtonType.CANCEL) {
+
+                // next delete the customer
+                customersDAO.deleteCustomer(tableCustomers.getSelectionModel().getSelectedItem().getCustomerID());
+
+                // display confirmation message
+                Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmation.setTitle("Confirmation");
+                confirmation.setContentText("Customer with " + appointmentCount + " appointments was deleted");
+                confirmation.getButtonTypes().clear();
+                confirmation.getButtonTypes().addAll(ButtonType.OK);
+                confirmation.showAndWait();
+
+                // refresh the customer table
+                tableCustomers.setItems(customersDAO.getAllCustomers());
+            }
+            else if (associatedAppoint.getResult() == ButtonType.CANCEL) {
                 associatedAppoint.close();
             }
         }
-*/
+
         // If there are no associated appointments for the selected user - an alert will be generated asking to confirm removal of the selected customer
         if (appointmentCount == 0) {
             Alert deleteconfirm = new Alert(Alert.AlertType.WARNING);
