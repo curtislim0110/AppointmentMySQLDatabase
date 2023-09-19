@@ -147,25 +147,44 @@ public class AppointmentsController implements Initializable {
                 appointmentsDAO.addAppointment(title, description, location, type, startDateTime, endDateTime, customerID, userID, contactID);
                 tableAppointments.setItems(appointmentsDAO.getAllAppointments());
             }
-
         }
-
     }
 
     @FXML
     void onActionUpdateAppointment(ActionEvent event) {
-        if (true) {
-            currentAlert.lambdaAlertMethod(1);
-        }
-        else if (true) {
-            currentAlert.lambdaAlertMethod(1);
-        }
+
 
 
     }
 
     @FXML
     void onActionDeleteAppointment(ActionEvent event) {
+        appointments selectedAppointment = tableAppointments.getSelectionModel().getSelectedItem();
+        if (selectedAppointment == null) {
+            currentAlert.lambdaAlertMethod(1);
+        }
+        else {
+            Alert deleteconfirm = new Alert(Alert.AlertType.WARNING);
+            deleteconfirm.setTitle("Warning");
+            deleteconfirm.setContentText("Delete appointment?");
+            deleteconfirm.getButtonTypes().clear();
+            deleteconfirm.getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.OK);
+            deleteconfirm.showAndWait();
+            if (deleteconfirm.getResult() == ButtonType.OK) {
+                Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmation.setTitle("Alert");
+                confirmation.setContentText("Appointment ID: " + tableAppointments.getSelectionModel().getSelectedItem().getAppointmentID()
+                        + " of type: " + tableAppointments.getSelectionModel().getSelectedItem().getType() + " was deleted.");
+                confirmation.getButtonTypes().clear();
+                confirmation.getButtonTypes().addAll(ButtonType.OK);
+                confirmation.showAndWait();
+                appointmentsDAO.deleteAppointment(tableAppointments.getSelectionModel().getSelectedItem().getAppointmentID());
+                tableAppointments.setItems(appointmentsDAO.getAllAppointments());
+
+            } else if (deleteconfirm.getResult() == ButtonType.CANCEL) {
+                deleteconfirm.close();
+            }
+        }
 
     }
 
@@ -189,6 +208,12 @@ public class AppointmentsController implements Initializable {
             Alert newAlert = new Alert(Alert.AlertType.ERROR);
             newAlert.setTitle("Error");
             newAlert.setContentText("Empty text field or missing selection");
+            newAlert.showAndWait();
+        }
+        if (e == 2) {
+            Alert newAlert = new Alert(Alert.AlertType.ERROR);
+            newAlert.setTitle("Error");
+            newAlert.setContentText("Select an appointment to delete first");
             newAlert.showAndWait();
         }
     };
