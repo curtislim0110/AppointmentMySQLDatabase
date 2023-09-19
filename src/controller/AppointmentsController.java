@@ -231,7 +231,21 @@ public class AppointmentsController implements Initializable {
             comboEndTime.setValue(mouseclickAppointment.getAppointmentEnd().toLocalTime());
 
             // load times and remaining combo boxes
-            comboCustomerID.setValue(mouseclickAppointment.getCustomerID());
+            // customers currentcustomer = new customers
+            // comboCustomerID.setValue(mouseclickAppointment.getCustomerID());
+
+            // set combo box for User ID
+            String currentUsername = usersDAO.getUserName(mouseclickAppointment.getUserID());
+            String currentPassword = usersDAO.getPassword(mouseclickAppointment.getUserID());
+            users currentuser = new users(mouseclickAppointment.getUserID(), currentUsername, currentPassword);
+            comboUserID.setValue(currentuser);
+
+            // set combo box for Contact Name
+            String contactName = contactsDAO.getContactName(mouseclickAppointment.getContactID());
+            String email = contactsDAO.getEmail(mouseclickAppointment.getContactID());
+            contacts currentContact = new contacts(mouseclickAppointment.getContactID(),contactName,email);
+            comboContactName.setValue(currentContact);
+
 
 
         }

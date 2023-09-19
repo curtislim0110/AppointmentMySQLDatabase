@@ -28,4 +28,32 @@ public class contactsDAO {
         }
         return currentcontactlist;
     }
+
+    // used to set a value in the appointments screen combo box for contacts
+    public static String getContactName(int contactID) {
+        try {
+            String sql = "SELECT Contact_Name FROM contacts WHERE Contact_ID = " + contactID;
+            PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
+            ResultSet rs = psSELECT.executeQuery();
+            rs.next();
+            return rs.getString("Contact_Name");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getEmail(int contactID) {
+        try {
+            String sql = "SELECT Email FROM contacts WHERE Contact_ID = " + contactID;
+            PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
+            ResultSet rs = psSELECT.executeQuery();
+            rs.next();
+            return rs.getString("Email");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

@@ -72,6 +72,7 @@ public class customersDAO {
         }
     }
 
+    // used to set a value in the customers screen for the first level combo box
     public static String getDivisionName(int divisionID) {
         try {
             String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = " + divisionID;
@@ -86,14 +87,14 @@ public class customersDAO {
         return null;
     }
 
+    // used to set a value in the customers screen for the first level combo box
     public static int getCountryID(int divisionID) {
         try {
             String sql = "SELECT Country_ID FROM first_level_divisions WHERE Division_ID = " + divisionID;
             PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
             ResultSet rs = psSELECT.executeQuery();
             rs.next();
-            int countryID = rs.getInt("Country_ID");
-            return countryID;
+            return rs.getInt("Country_ID");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -58,4 +58,32 @@ public class usersDAO {
         return null;
     }
 
+    // used to set a value in the appointments screen combo box for users
+    public static String getUserName(int userID) {
+        try {
+            String sql = "SELECT User_Name FROM users WHERE User_ID = " + userID;
+            PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
+            ResultSet rs = psSELECT.executeQuery();
+            rs.next();
+            return rs.getString("User_Name");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // used to set a value in the appointments screen combo box for users
+    public static String getPassword(int userID) {
+        try {
+            String sql = "SELECT Password FROM users WHERE User_ID = " + userID;
+            PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
+            ResultSet rs = psSELECT.executeQuery();
+            rs.next();
+            return rs.getString("Password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
