@@ -1,9 +1,11 @@
 package controller;
 
+import DAO.appointmentsDAO;
 import DAO.countriesDAO;
 import DAO.customersDAO;
 import DAO.firstleveldivisionsDAO;
 import helper.lambdaAlert;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.appointments;
 import model.countries;
 import model.customers;
 import model.firstleveldivisions;
@@ -163,21 +166,87 @@ public class CustomersController implements Initializable {
         }
     }
 
-
     @FXML
     void onActionDelete(ActionEvent event) {
-        // need to update to delete customer-associated appointments. for now just deleting a customer
 
-        // Error message if no customer selected for deletion
-        if (tableCustomers.getSelectionModel().getSelectedItem() == null) {
+        // load a customer object with the mouse-selected customer
+        customers currentCustomer = tableCustomers.getSelectionModel().getSelectedItem();
+
+        // if no customer is selected, display error alert and exit
+        if (currentCustomer == null) {
             currentAlert.lambdaAlertMethod(10);
-        }
-        else {
-            customersDAO.deleteCustomer(tableCustomers.getSelectionModel().getSelectedItem().getCustomerID());
-            currentAlert.lambdaAlertMethod(11);
-            tableCustomers.setItems(customersDAO.getAllCustomers());
+            return;
         }
 
+        // load all appointments in database
+        ObservableList<appointments> appointmentList = appointmentsDAO.getAllAppointments();
+
+        // load the current customer ID
+        int currentCustomerID = tableCustomers.getSelectionModel().getSelectedItem().getCustomerID();
+
+        // keeps track of the total number of appointments associated with a customer, used in displaying a custom message
+        int appointmentCount = 0;
+
+        // iterate over appointment list, counting appointments associated with a customer in customerAppointmentCount
+        for (appointments currentappointment : appointmentList) {
+            int loopCustomerID = currentappointment.getCustomerID();
+            if (loopCustomerID == currentCustomerID) {
+                appointmentCount = appointmentCount + 1;
+            }
+        }
+        // Displays an alert letting the user know they have associated appointments, the quantity and allows them to agree to delete associated appointments as well.
+        /*
+        if (appointmentCount > 0) {
+            Alert associatedAppoint = new Alert(Alert.AlertType.WARNING);
+            associatedAppoint.setTitle("Alert");
+            associatedAppoint.setHeaderText("Alert: " + count + " associated appointment(s).");
+            associatedAppoint.setContentText("There is " + count + " associated appointment(s) for the selected customer.\n\n" +
+                    "Please select OK to delete the associated appointments and customer.\n\n" +
+                    "Otherwise, please press cancel to return to the main screen.");
+            associatedAppoint.getButtonTypes().clear();
+            associatedAppoint.getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.OK);
+            associatedAppoint.getDialogPane().setMinHeight(250);
+            associatedAppoint.getDialogPane().setMinWidth(400);
+            associatedAppoint.showAndWait();
+            if (associatedAppoint.getResult() == ButtonType.OK) {
+                for (Appointment appointment : appointmentList) {
+                    if (appointment.getAppointmentCustomerId() == selectedCustomer)
+                        AppointmentDAO.deleteAppointment(appointment.getAppointmentId());
+                }
+                CustomerDAO.deleteCustomer(custTable.getSelectionModel().getSelectedItem().getCustomerId());
+                helper.ErrorMsg.confirmation(2);
+                CustomerList = CustomerDAO.getCustomerList();
+                custTable.setItems(CustomerList);
+                custTable.refresh();
+            } else if (associatedAppoint.getResult() == ButtonType.CANCEL) {
+                associatedAppoint.close();
+            }
+        }
+*/
+        // If there are no associated appointments for the selected user - an alert will be generated asking to confirm removal of the selected customer
+        if (appointmentCount == 0) {
+            Alert deleteconfirm = new Alert(Alert.AlertType.WARNING);
+            deleteconfirm.setTitle("Warning");
+            deleteconfirm.setContentText("Delete customer with no appointments?");
+            deleteconfirm.getButtonTypes().clear();
+            deleteconfirm.getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.OK);
+            deleteconfirm.showAndWait();
+
+            if (deleteconfirm.getResult() == ButtonType.OK) {
+                Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmation.setTitle("Confirmation");
+                confirmation.setContentText("Customer with no appointments was deleted");
+                confirmation.getButtonTypes().clear();
+                confirmation.getButtonTypes().addAll(ButtonType.OK);
+                confirmation.showAndWait();
+                customersDAO.deleteCustomer(tableCustomers.getSelectionModel().getSelectedItem().getCustomerID());
+                tableCustomers.setItems(customersDAO.getAllCustomers());
+            }
+
+            else if (deleteconfirm.getResult() == ButtonType.CANCEL) {
+                deleteconfirm.close();
+            }
+        }
     }
 
 
@@ -291,12 +360,6 @@ public class CustomersController implements Initializable {
             Alert newAlert = new Alert(Alert.AlertType.ERROR);
             newAlert.setTitle("Error");
             newAlert.setContentText("No customer was selected to delete");
-            newAlert.showAndWait();
-        }
-        else if (e == 11) {
-            Alert newAlert = new Alert(Alert.AlertType.INFORMATION);
-            newAlert.setTitle("Success");
-            newAlert.setContentText("Customer deleted");
             newAlert.showAndWait();
         }
     };

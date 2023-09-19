@@ -180,8 +180,8 @@ public class AppointmentsController implements Initializable {
                 confirmation.showAndWait();
                 appointmentsDAO.deleteAppointment(tableAppointments.getSelectionModel().getSelectedItem().getAppointmentID());
                 tableAppointments.setItems(appointmentsDAO.getAllAppointments());
-
-            } else if (deleteconfirm.getResult() == ButtonType.CANCEL) {
+            }
+            else if (deleteconfirm.getResult() == ButtonType.CANCEL) {
                 deleteconfirm.close();
             }
         }
