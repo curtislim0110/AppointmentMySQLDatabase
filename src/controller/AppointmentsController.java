@@ -112,22 +112,20 @@ public class AppointmentsController implements Initializable {
     @FXML
     void onActionAddAppointment(ActionEvent event) {
 
-        // check for null values or empty text fields
+        // check for null values or empty text fields and display an error message if input is missing
         if (textTitle.getText().isEmpty() || textDescription.getText().isEmpty() || textLocation.getText().isEmpty() || textType.getText().isEmpty()
                 || datePickerStart.getValue() == null || datePickerEnd.getValue() == null || comboStartTime.getValue() == null || comboEndTime.getValue() == null
                 || comboCustomerID == null || comboUserID == null || comboContactName == null)  {
             currentAlert.lambdaAlertMethod(1);
         }
-
-        // else if appointment overlap checking
-
         else {
-            // load data into local variables
+            // if there is input for all textboxes and combo box selections have been made, load data into local variables
             String title = textTitle.getText();
             String description = textDescription.getText();
             String location = textLocation.getText();
             String type = textType.getText();
 
+            // need to somehow get dates outside of if statements for appointment comparison
             LocalDate startDate = datePickerStart.getValue();
             LocalDate endDate = datePickerEnd.getValue();
             LocalTime startTime = comboStartTime.getSelectionModel().getSelectedItem();
@@ -137,11 +135,22 @@ public class AppointmentsController implements Initializable {
             int userID = comboUserID.getSelectionModel().getSelectedItem().getUser_ID();
             int contactID = comboContactName.getSelectionModel().getSelectedItem().getContactID();
 
-            // if there are no errors or conflicts, add new appointment and refresh table
-            LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
-            LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
-            appointmentsDAO.addAppointment(title, description, location, type, startDateTime, endDateTime, customerID, userID, contactID);
-            tableAppointments.setItems(appointmentsDAO.getAllAppointments());
+            // check for overlapping appointments
+            if ( ){
+
+
+            }
+
+            // if there are overlapping appointments, add new appointment and refresh table
+            else {
+                LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
+                LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
+                appointmentsDAO.addAppointment(title, description, location, type, startDateTime, endDateTime, customerID, userID, contactID);
+                tableAppointments.setItems(appointmentsDAO.getAllAppointments());
+            }
+
+
+
         }
 
 
