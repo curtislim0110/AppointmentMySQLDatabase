@@ -49,14 +49,14 @@ public class customers {
     public void setCountryName(String countryName) { this.countryName = countryName; }
 
     /**
-     * this toString method overrides the default toString method, which returns customer name instead
+     * this toString method overrides the default toString method, which returns customerID instead
      * of a pointer reference to a hash code when customers are displayed in a combo box
      *
-     * @return customerName
+     * @return customerID
      */
     @Override
     public String toString() {
-        return (customerName);
+        return (Integer.toString(customerID));
     }
 
 }
