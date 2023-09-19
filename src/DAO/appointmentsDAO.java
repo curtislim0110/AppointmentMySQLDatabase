@@ -7,6 +7,7 @@ import model.appointments;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class appointmentsDAO {
@@ -55,6 +56,30 @@ public class appointmentsDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void addAppointment(String title, String description, String location, String type, LocalDateTime starttime,
+                                      LocalDateTime endtime, int customerID, int userID, int contactID) {
+        try {
+            String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID)" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement psINSERT = JDBC.JDBCconnection.prepareStatement(sql);
+
+            psINSERT.setString(1, title);
+            psINSERT.setString(2, description);
+            psINSERT.setString(3, location);
+            psINSERT.setString(4, type);
+            psINSERT.setTimestamp(5, Timestamp.valueOf(starttime));
+            psINSERT.setTimestamp(6, Timestamp.valueOf(endtime));
+            psINSERT.setInt(7, customerID);
+            psINSERT.setInt(8, userID);
+            psINSERT.setInt(9, contactID);
+            psINSERT.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();;
+        }
+
     }
 
 }

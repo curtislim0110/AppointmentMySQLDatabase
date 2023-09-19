@@ -2,6 +2,7 @@ package controller;
 
 import DAO.appointmentsDAO;
 import DAO.customersDAO;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,9 +14,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.appointments;
+import model.contacts;
+import model.customers;
+import model.users;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class AppointmentsController implements Initializable {
@@ -54,19 +59,19 @@ public class AppointmentsController implements Initializable {
     private TableView<appointments> tableAppointments;
 
     @FXML
-    private ComboBox<?> comboContactName;
+    private ComboBox<contacts> comboContactName;
 
     @FXML
-    private ComboBox<?> comboCustomerID;
+    private ComboBox<customers> comboCustomerID;
 
     @FXML
-    private ComboBox<?> comboEndTime;
+    private ComboBox<LocalTime> comboEndTime;
 
     @FXML
-    private ComboBox<?> comboStartTime;
+    private ComboBox<LocalTime> comboStartTime;
 
     @FXML
-    private ComboBox<?> comboUserID;
+    private ComboBox<users> comboUserID;
 
     @FXML
     private DatePicker datePickerEnd;
@@ -100,7 +105,24 @@ public class AppointmentsController implements Initializable {
 
     @FXML
     void onActionAddAppointment(ActionEvent event) {
-
+/*
+        // load data into local variables
+        string title = titleTxt.getText();
+        string description = descriptionTxt.getText();
+        string location = locationTxt.getText();
+        string type = typeTxt.getText();
+        contactId = contactComboBx.getSelectionModel().getSelectedItem().getContactId();
+        customerId = customerComboBx.getSelectionModel().getSelectedItem().getCustomerId();
+        userId = userComboBx.getSelectionModel().getSelectedItem().getUserId();
+        startDate = startDatePicker.getValue();
+        endDate = endDatePicker.getValue();
+        startTime = startTimeComboBx.getSelectionModel().getSelectedItem();
+        endTime = endTimeComboBx.getSelectionModel().getSelectedItem();
+        startDateTime = LocalDateTime.of(startDate.getYear(), startDate.getMonth(), startDate.getDayOfMonth(),
+                startTime.getHour(), startTime.getMinute());
+        endDateTime = LocalDateTime.of(endDate.getYear(), endDate.getMonth(), endDate.getDayOfMonth(),
+                endTime.getHour(), endTime.getMinute());
+*/
     }
 
     @FXML
@@ -126,6 +148,7 @@ public class AppointmentsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // load tableview with appointment data
         columnAppointmentID.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
         columnTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         columnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -136,8 +159,11 @@ public class AppointmentsController implements Initializable {
         columnCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         columnUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
         columnContactName.setCellValueFactory(new PropertyValueFactory<>("contactName"));
-
         tableAppointments.setItems(appointmentsDAO.getAllAppointments());
+
+        // load combo boxes with appropriate data
+        // ObservableList<customers> customerList = customersDAO.getAllCustomers();
+        // comboContactName.setItems(customerList);
 
     }
 
