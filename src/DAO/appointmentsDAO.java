@@ -64,7 +64,6 @@ public class appointmentsDAO {
             String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID)" +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement psINSERT = JDBC.JDBCconnection.prepareStatement(sql);
-
             psINSERT.setString(1, title);
             psINSERT.setString(2, description);
             psINSERT.setString(3, location);
@@ -74,12 +73,33 @@ public class appointmentsDAO {
             psINSERT.setInt(7, customerID);
             psINSERT.setInt(8, userID);
             psINSERT.setInt(9, contactID);
-            psINSERT.executeUpdate();
-
+            psINSERT.execute();
         } catch (SQLException e) {
-            e.printStackTrace();;
+            e.printStackTrace();
         }
+    }
 
+    public static void updateAppointment(int appointmentID, String title, String description, String location,
+                                         String type, LocalDateTime starttime, LocalDateTime endtime,
+                                         int customerID, int userID, int contactID) {
+        try {
+            String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, " +
+                    "Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
+            PreparedStatement psUPDATE = JDBC.JDBCconnection.prepareStatement(sql);
+            psUPDATE.setString(1, title);
+            psUPDATE.setString(2, description);
+            psUPDATE.setString(3, location);
+            psUPDATE.setString(4, type);
+            psUPDATE.setTimestamp(5, Timestamp.valueOf(starttime));
+            psUPDATE.setTimestamp(6, Timestamp.valueOf(endtime));
+            psUPDATE.setInt(7, customerID);
+            psUPDATE.setInt(8, userID);
+            psUPDATE.setInt(9, contactID);
+            psUPDATE.setInt(10, appointmentID);
+            psUPDATE.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

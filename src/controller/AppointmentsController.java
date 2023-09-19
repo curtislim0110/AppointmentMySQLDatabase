@@ -251,9 +251,6 @@ public class AppointmentsController implements Initializable {
             String email = contactsDAO.getEmail(mouseclickAppointment.getContactID());
             contacts currentContact = new contacts(mouseclickAppointment.getContactID(),contactName,email);
             comboContactName.setValue(currentContact);
-
-
-
         }
     }
 
