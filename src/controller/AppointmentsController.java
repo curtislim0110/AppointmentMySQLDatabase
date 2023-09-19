@@ -172,11 +172,12 @@ public class AppointmentsController implements Initializable {
         ObservableList<contacts> contactsList = contactsDAO.getAllContacts();
         comboContactName.setItems(contactsList);
 
-        // initialize combo boxes for start time in 30 minute local time increments starting at 8am EST
+        // initialize combo box for start time in 30 minute local time increments starting at 8am EST
         comboStartTime.setItems(timeHelper.appointmentHoursEST(LocalTime.of(8, 0)));
-        // initialize combo boxes for end time in 30 minute local time increments starting at 8:30am EST
+        // initialize combo box for end time in 30 minute local time increments starting at 8:30am EST
         comboEndTime.setItems(timeHelper.appointmentHoursEST(LocalTime.of(8, 30)));
     }
+
 
 }
 

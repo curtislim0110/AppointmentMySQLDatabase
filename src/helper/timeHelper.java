@@ -8,7 +8,6 @@ import java.time.*;
 public class timeHelper {
 
     // This function is used to display potential appointment times in a user's local time zone, based on EST business hours of 8:00 to 22:00.
-
     public static ObservableList<LocalTime> appointmentHoursEST(LocalTime businessHourStart) {
 
         ObservableList<LocalTime> timeList = FXCollections.observableArrayList();
