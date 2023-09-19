@@ -67,23 +67,25 @@
             <Label text="Contact Name" GridPane.rowIndex="9" />
             <Label text="Start Time" GridPane.columnIndex="2" GridPane.rowIndex="5" />
             <Label text="End Time" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <TextField fx:id="textAppointmentID" GridPane.columnIndex="1" />
+            <TextField fx:id="textTitle" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="textDescription" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="textLocation" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="textType" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="comboCustomerID" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <ComboBox fx:id="comboUserID" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <ComboBox fx:id="comboContactName" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <DatePicker fx:id="datePickerStart" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <DatePicker fx:id="datePickerEnd" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ComboBox fx:id="comboStartTime" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <ComboBox fx:id="comboEndTime" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
          </children>
       </GridPane>
-      <Button layoutX="911.0" layoutY="563.0" mnemonicParsing="false" onAction="#onActionMainMenu" text="Return to Main Menu" />
-      <RadioButton layoutX="902.0" layoutY="32.0" mnemonicParsing="false" text="All Appointments" />
-      <RadioButton layoutX="1065.0" layoutY="32.0" mnemonicParsing="false" text="Month" />
-      <RadioButton layoutX="1169.0" layoutY="32.0" mnemonicParsing="false" text="Week" />
+      <Button layoutX="838.0" layoutY="669.0" mnemonicParsing="false" onAction="#onActionMainMenu" text="Return to Main Menu" />
+      <RadioButton layoutX="902.0" layoutY="32.0" mnemonicParsing="false" onAction="#onActionAppointmentsAll" selected="true" text="All Appointments" />
+      <RadioButton layoutX="1065.0" layoutY="32.0" mnemonicParsing="false" onAction="#onActionAppointmentsMonth" text="Month" />
+      <RadioButton layoutX="1169.0" layoutY="32.0" mnemonicParsing="false" onAction="#onActionAppointmentsWeek" text="Week" />
+      <Button layoutX="846.0" layoutY="538.0" mnemonicParsing="false" onAction="#onActionAddAppointment" text="Add Appointment" />
+      <Button layoutX="838.0" layoutY="602.0" mnemonicParsing="false" onAction="#onActionUpdateAppointment" text="Update Appointment" />
    </children>
 </AnchorPane>

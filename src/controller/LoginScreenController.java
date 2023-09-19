@@ -22,7 +22,6 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static DAO.usersDAO.usersLogin;
-import static helper.timeConversionHelper.loginactivityUTC;
 
 public class LoginScreenController implements Initializable {
 
