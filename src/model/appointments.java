@@ -1,4 +1,8 @@
 package model;
+import DAO.appointmentsDAO;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+
 import java.time.*;
 
 public class appointments {
@@ -67,4 +71,55 @@ public class appointments {
     public void setContactID(int contactID) { this.contactID = contactID; }
     public void setContactName(String contactName) { this.contactName = contactName; }
     // public void setUserName(String userName) { this.userName = userName; }
+
+
+    public static boolean addConflictCheck(int customerID, LocalDateTime JstartCheck, LocalDateTime JendCheck) {
+
+        // get a list of all appointments from the database
+        ObservableList<appointments> appointmentList = appointmentsDAO.getAllAppointments();
+
+        // initialize two temporary fields to hold appointment starting and ending times from the list
+        LocalDateTime MstartCheck;
+        LocalDateTime MendCheck;
+
+        // iterate over appointment list, checking for a schedule overlap
+        for (appointments singleAppointment : appointmentList) {
+            MstartCheck = singleAppointment.getAppointmentStart();
+            MendCheck = singleAppointment.getAppointmentEnd();
+
+            // when comparing appointments for overlap, check to see if it is the same customer with a potential overlapping appointment
+            // if the customersIDs are different, then no error message is triggered here
+            if (customerID == singleAppointment.getCustomerID()) {
+                if ((MstartCheck.isAfter(JstartCheck) || MstartCheck.isEqual(JstartCheck)) && MstartCheck.isBefore(JendCheck)){
+                    Alert newAlert = new Alert(Alert.AlertType.ERROR);
+                    newAlert.setTitle("Error");
+                    newAlert.setContentText("At least one existing appointment start time is between the proposed appointment time");
+                    newAlert.showAndWait();
+                    return true;
+                }
+                else if (MendCheck.isAfter(JstartCheck) && ((MendCheck.isBefore(JendCheck) && MendCheck.isEqual(JendCheck)))) {
+                    Alert newAlert = new Alert(Alert.AlertType.ERROR);
+                    newAlert.setTitle("Error");
+                    newAlert.setContentText("At least one existing appointment end time is between the proposed appointment time");
+                    newAlert.showAndWait();
+                    return true;
+                } else if (MstartCheck.isBefore(JstartCheck) || MstartCheck.isEqual(JstartCheck) && ((MendCheck.isAfter(JendCheck)) || (MendCheck.isEqual(JendCheck)))) {
+                    Alert newAlert = new Alert(Alert.AlertType.ERROR);
+                    newAlert.setTitle("Error");
+                    newAlert.setContentText("At least one existing appointment completely overlaps the proposed appointment time");
+                    newAlert.showAndWait();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // public static boolean modifyConflictCheck(int appointmentID, int customerID, LocalDateTime parameterStartTime, LocalDateTime parameterEndTime)
+
+    // updating an appointment should not cause an overlap conflict with itself, so we remove that appointment from our list of appointments being checked
+
+
+
+
 }
