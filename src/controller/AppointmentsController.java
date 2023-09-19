@@ -137,8 +137,16 @@ public class AppointmentsController implements Initializable {
             int userID = comboUserID.getSelectionModel().getSelectedItem().getUser_ID();
             int contactID = comboContactName.getSelectionModel().getSelectedItem().getContactID();
 
+            // verify that start time is before end time
+            if (startDateTime.isAfter(endDateTime) || startDateTime.isEqual(endDateTime)) {
+                Alert newAlert = new Alert(Alert.AlertType.ERROR);
+                newAlert.setTitle("Error");
+                newAlert.setContentText("Starting date/time must not be the equal to as or after ending date/time");
+                newAlert.showAndWait();
+            }
+
             // check for overlapping appointments
-            if (appointments.addConflictCheck(customerID, startDateTime, endDateTime)) {
+            else if (appointments.addConflictCheck(customerID, startDateTime, endDateTime)) {
                 // error alerts moved into addConflictCheck method
             }
 
