@@ -72,34 +72,6 @@ public class customersDAO {
         }
     }
 
-    // used to set a value in the customers screen for the first level combo box
-    public static String getDivisionName(int divisionID) {
-        try {
-            String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = " + divisionID;
-            PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
-            ResultSet rs = psSELECT.executeQuery();
-            rs.next();
-            String divisionName = rs.getString("Division");
-            return divisionName;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    // used to set a value in the customers screen for the first level combo box
-    public static int getCountryID(int divisionID) {
-        try {
-            String sql = "SELECT Country_ID FROM first_level_divisions WHERE Division_ID = " + divisionID;
-            PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
-            ResultSet rs = psSELECT.executeQuery();
-            rs.next();
-            return rs.getInt("Country_ID");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public static void updateCustomer(int customerID, String customerName, String customerAddress, String customerPostalCode,
                                       String customerPhone, int divisionID) {
         try {
@@ -116,5 +88,97 @@ public class customersDAO {
             e.printStackTrace();
         }
     }
+
+    // used to set a value for a combo box in customers screen and appointments screen
+    public static String getDivisionName(int divisionID) {
+        try {
+            String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = " + divisionID;
+            PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
+            ResultSet rs = psSELECT.executeQuery();
+            rs.next();
+            String divisionName = rs.getString("Division");
+            return divisionName;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // used to set a value for a combo box in customers screen and appointments screen
+    public static int getCountryID(int divisionID) {
+        try {
+            String sql = "SELECT Country_ID FROM first_level_divisions WHERE Division_ID = " + divisionID;
+            PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
+            ResultSet rs = psSELECT.executeQuery();
+            rs.next();
+            return rs.getInt("Country_ID");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // used to set a value in the appointments screen combo box for users
+    public static String getCustomerName(int customerID) {
+        try {
+            String sql = "SELECT Customer_Name FROM customers WHERE Customer_ID = " + customerID;
+            PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
+            ResultSet rs = psSELECT.executeQuery();
+            rs.next();
+            return rs.getString("Customer_Name");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // used to set a value in the appointments screen combo box for users
+    public static String getAddress(int customerID) {
+        try {
+            String sql = "SELECT Address FROM customers WHERE Customer_ID = " + customerID;
+            PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
+            ResultSet rs = psSELECT.executeQuery();
+            rs.next();
+            return rs.getString("Address");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // used to set a value in the appointments screen combo box for users
+    public static String getPostal(int customerID) {
+        try {
+            String sql = "SELECT Postal_Code FROM customers WHERE Customer_ID = " + customerID;
+            PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
+            ResultSet rs = psSELECT.executeQuery();
+            rs.next();
+            return rs.getString("Postal_Code");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getPhone(int customerID) {
+        try {
+            String sql = "SELECT Phone FROM customers WHERE Customer_ID = " + customerID;
+            PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
+            ResultSet rs = psSELECT.executeQuery();
+            rs.next();
+            return rs.getString("Phone");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static int getDivisionID(int customerID) throws SQLException{
+        String sql = "SELECT Division_ID FROM customers WHERE Customer_ID = " + customerID;
+        PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
+        ResultSet rs = psSELECT.executeQuery();
+        rs.next();
+        return rs.getInt("Division_ID");
+    }
+
 
 }

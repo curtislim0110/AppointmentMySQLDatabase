@@ -27,4 +27,17 @@ public class countriesDAO {
         }
         return countriesList;
     }
+
+    public static String getCountryName(int countryID) {
+        try {
+            String sql = "SELECT Country FROM countries WHERE Country_ID = " + countryID;
+            PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);
+            ResultSet rs = psSELECT.executeQuery();
+            rs.next();
+            return rs.getString("Country");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

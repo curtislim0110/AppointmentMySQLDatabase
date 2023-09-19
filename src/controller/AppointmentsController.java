@@ -1,9 +1,6 @@
 package controller;
 
-import DAO.appointmentsDAO;
-import DAO.contactsDAO;
-import DAO.customersDAO;
-import DAO.usersDAO;
+import DAO.*;
 import helper.lambdaAlert;
 import helper.timeHelper;
 import javafx.collections.ObservableList;
@@ -22,6 +19,7 @@ import model.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -210,7 +208,7 @@ public class AppointmentsController implements Initializable {
     }
 
     @FXML
-    void onMouseClickTable(MouseEvent event) {
+    void onMouseClickTable(MouseEvent event) throws SQLException {
         if (tableAppointments.getSelectionModel().getSelectedItem() == null) {
             // do nothing if an empty space is clicked on the table
         }
@@ -230,9 +228,17 @@ public class AppointmentsController implements Initializable {
             comboStartTime.setValue(mouseclickAppointment.getAppointmentStart().toLocalTime());
             comboEndTime.setValue(mouseclickAppointment.getAppointmentEnd().toLocalTime());
 
-            // load times and remaining combo boxes
-            // customers currentcustomer = new customers
-            // comboCustomerID.setValue(mouseclickAppointment.getCustomerID());
+            // set combo box for Customer
+            String customerName = customersDAO.getCustomerName((mouseclickAppointment.getCustomerID()));
+            String customerAddress = customersDAO.getAddress((mouseclickAppointment.getCustomerID()));
+            String postal = customersDAO.getPostal((mouseclickAppointment.getCustomerID()));
+            String phone = customersDAO.getPhone((mouseclickAppointment.getCustomerID()));
+            int divisionID =  customersDAO.getDivisionID((mouseclickAppointment.getCustomerID()));
+            String divisionName = customersDAO.getDivisionName(divisionID);
+            int countryID = customersDAO.getCountryID(divisionID);
+            String countryName = countriesDAO.getCountryName(countryID);
+            customers currentcustomer = new customers(mouseclickAppointment.getCustomerID(), customerName, customerAddress, postal, phone, divisionID, divisionName, countryID, countryName);
+            comboCustomerID.setValue(currentcustomer);
 
             // set combo box for User ID
             String currentUsername = usersDAO.getUserName(mouseclickAppointment.getUserID());

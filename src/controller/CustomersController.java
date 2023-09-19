@@ -283,7 +283,6 @@ public class CustomersController implements Initializable {
             textPostal.setText(mouseclickCustomer.getCustomerPostal());
 
             // create temporary countries and firstleveldivisions objects to load the combo boxes
-
             countries currentcountry = new countries(mouseclickCustomer.getCountryID(), mouseclickCustomer.getCountryName());
             comboboxCountry.setValue(currentcountry);
 
