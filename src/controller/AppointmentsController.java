@@ -128,9 +128,13 @@ public class AppointmentsController implements Initializable {
         int userID = comboUserID.getSelectionModel().getSelectedItem().getUser_ID();
         int contactID = comboContactName.getSelectionModel().getSelectedItem().getContactID();
 
+
+
         // add new appointment and refresh table
         appointmentsDAO.addAppointment(title, description, location, type, startDateTime, endDateTime, customerID, userID, contactID);
         tableAppointments.setItems(appointmentsDAO.getAllAppointments());
+
+
 
     }
 
