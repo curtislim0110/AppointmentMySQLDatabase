@@ -16,11 +16,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import model.appointments;
-import model.contacts;
-import model.customers;
-import model.users;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -150,7 +148,7 @@ public class AppointmentsController implements Initializable {
                 // error alerts moved into addConflictCheck method
             }
 
-            // if there are no overlapping appointments, add new appointment and refresh table
+            // if there are no errors or overlapping appointments, add a new appointment and refresh table
             else {
                 appointmentsDAO.addAppointment(title, description, location, type, startDateTime, endDateTime, customerID, userID, contactID);
                 tableAppointments.setItems(appointmentsDAO.getAllAppointments());
@@ -209,6 +207,34 @@ public class AppointmentsController implements Initializable {
     @FXML
     void onActionAppointmentsWeek(ActionEvent event) {
 
+    }
+
+    @FXML
+    void onMouseClickTable(MouseEvent event) {
+        if (tableAppointments.getSelectionModel().getSelectedItem() == null) {
+            // do nothing if an empty space is clicked on the table
+        }
+        // otherwise, load the selected row of data from the table into the textboxes
+        else {
+            // load text boxes
+            appointments mouseclickAppointment = tableAppointments.getSelectionModel().getSelectedItem();
+            textAppointmentID.setText(Integer.toString(mouseclickAppointment.getAppointmentID()));
+            textTitle.setText(mouseclickAppointment.getTitle());
+            textDescription.setText(mouseclickAppointment.getDescription());
+            textLocation.setText(mouseclickAppointment.getLocation());
+            textType.setText(mouseclickAppointment.getType());
+
+            // load dates
+            datePickerStart.setValue(mouseclickAppointment.getAppointmentStart().toLocalDate());
+            datePickerEnd.setValue(mouseclickAppointment.getAppointmentEnd().toLocalDate());
+            comboStartTime.setValue(mouseclickAppointment.getAppointmentStart().toLocalTime());
+            comboEndTime.setValue(mouseclickAppointment.getAppointmentEnd().toLocalTime());
+
+            // load times and remaining combo boxes
+            comboCustomerID.setValue(mouseclickAppointment.getCustomerID());
+
+
+        }
     }
 
     lambdaAlert currentAlert = e -> {

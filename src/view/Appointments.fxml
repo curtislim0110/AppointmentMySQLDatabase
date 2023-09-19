@@ -21,7 +21,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <TableView fx:id="tableAppointments" layoutX="52.0" layoutY="67.0" prefHeight="282.0" prefWidth="1187.0">
+      <TableView fx:id="tableAppointments" layoutX="52.0" layoutY="67.0" onMouseClicked="#onMouseClickTable" prefHeight="282.0" prefWidth="1187.0">
         <columns>
           <TableColumn fx:id="columnAppointmentID" prefWidth="60.0" text="Apt. ID" />
           <TableColumn fx:id="columnTitle" prefWidth="100.0" text="Title" />
