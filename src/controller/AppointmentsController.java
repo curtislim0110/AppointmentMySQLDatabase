@@ -4,6 +4,7 @@ import DAO.appointmentsDAO;
 import DAO.contactsDAO;
 import DAO.customersDAO;
 import DAO.usersDAO;
+import helper.timeHelper;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -171,6 +172,8 @@ public class AppointmentsController implements Initializable {
         ObservableList<contacts> contactsList = contactsDAO.getAllContacts();
         comboContactName.setItems(contactsList);
 
+        // initialize combo boxes for time in 30 minute local time increments
+        comboStartTime.setItems(timeHelper.appointmentHoursEST());
     }
 
 }
