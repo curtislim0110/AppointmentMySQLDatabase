@@ -30,7 +30,6 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void onActionAppointments(ActionEvent event) throws IOException {
-        System.out.println("Appointments Button Used");
         Parent root = FXMLLoader.load(getClass().getResource("../view/Appointments.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

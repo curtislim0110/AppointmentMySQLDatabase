@@ -67,7 +67,7 @@
             <Label text="Contact Name" GridPane.rowIndex="9" />
             <Label text="Start Time" GridPane.columnIndex="2" GridPane.rowIndex="5" />
             <Label text="End Time" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <TextField fx:id="textAppointmentID" GridPane.columnIndex="1" />
+            <TextField fx:id="textAppointmentID" disable="true" editable="false" promptText="auto-generated" GridPane.columnIndex="1" />
             <TextField fx:id="textTitle" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="textDescription" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="textLocation" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -85,7 +85,8 @@
       <RadioButton layoutX="902.0" layoutY="32.0" mnemonicParsing="false" onAction="#onActionAppointmentsAll" selected="true" text="All Appointments" />
       <RadioButton layoutX="1065.0" layoutY="32.0" mnemonicParsing="false" onAction="#onActionAppointmentsMonth" text="Month" />
       <RadioButton layoutX="1169.0" layoutY="32.0" mnemonicParsing="false" onAction="#onActionAppointmentsWeek" text="Week" />
-      <Button layoutX="846.0" layoutY="538.0" mnemonicParsing="false" onAction="#onActionAddAppointment" text="Add Appointment" />
-      <Button layoutX="838.0" layoutY="602.0" mnemonicParsing="false" onAction="#onActionUpdateAppointment" text="Update Appointment" />
+      <Button layoutX="846.0" layoutY="471.0" mnemonicParsing="false" onAction="#onActionAddAppointment" text="Add Appointment" />
+      <Button layoutX="839.0" layoutY="538.0" mnemonicParsing="false" onAction="#onActionUpdateAppointment" text="Update Appointment" />
+      <Button layoutX="840.0" layoutY="601.0" mnemonicParsing="false" onAction="#onActionDeleteAppointment" text="Delete Appointment" />
    </children>
 </AnchorPane>

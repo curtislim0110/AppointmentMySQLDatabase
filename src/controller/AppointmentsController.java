@@ -23,6 +23,8 @@ import model.users;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
@@ -108,28 +110,37 @@ public class AppointmentsController implements Initializable {
 
     @FXML
     void onActionAddAppointment(ActionEvent event) {
-/*
+
         // load data into local variables
-        string title = titleTxt.getText();
-        string description = descriptionTxt.getText();
-        string location = locationTxt.getText();
-        string type = typeTxt.getText();
-        contactId = contactComboBx.getSelectionModel().getSelectedItem().getContactId();
-        customerId = customerComboBx.getSelectionModel().getSelectedItem().getCustomerId();
-        userId = userComboBx.getSelectionModel().getSelectedItem().getUserId();
-        startDate = startDatePicker.getValue();
-        endDate = endDatePicker.getValue();
-        startTime = startTimeComboBx.getSelectionModel().getSelectedItem();
-        endTime = endTimeComboBx.getSelectionModel().getSelectedItem();
-        startDateTime = LocalDateTime.of(startDate.getYear(), startDate.getMonth(), startDate.getDayOfMonth(),
-                startTime.getHour(), startTime.getMinute());
-        endDateTime = LocalDateTime.of(endDate.getYear(), endDate.getMonth(), endDate.getDayOfMonth(),
-                endTime.getHour(), endTime.getMinute());
-*/
+        String title = textTitle.getText();
+        String description = textDescription.getText();
+        String location = textLocation.getText();
+        String type = textType.getText();
+
+        LocalDate startDate = datePickerStart.getValue();
+        LocalDate endDate = datePickerEnd.getValue();
+        LocalTime startTime = comboStartTime.getSelectionModel().getSelectedItem();
+        LocalTime endTime = comboEndTime.getSelectionModel().getSelectedItem();
+        LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
+        LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
+
+        int customerID = comboCustomerID.getSelectionModel().getSelectedItem().getCustomerID();
+        int userID = comboUserID.getSelectionModel().getSelectedItem().getUser_ID();
+        int contactID = comboContactName.getSelectionModel().getSelectedItem().getContactID();
+
+        // add new appointment and refresh table
+        appointmentsDAO.addAppointment(title, description, location, type, startDateTime, endDateTime, customerID, userID, contactID);
+        tableAppointments.setItems(appointmentsDAO.getAllAppointments());
+
     }
 
     @FXML
     void onActionUpdateAppointment(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionDeleteAppointment(ActionEvent event) {
 
     }
 
