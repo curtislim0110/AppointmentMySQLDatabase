@@ -17,11 +17,11 @@ public class appointments {
     private int contactID;
 
     private String contactName;
-    private String userName;
+    // private String userName;
 
     public appointments(int appointmentID, String title, String description, String location, String type,
                        LocalDateTime appointmentStart, LocalDateTime appointmentEnd,
-                       int customerID, int userID, int contactID, String contactName, String userName) {
+                       int customerID, int userID, int contactID, String contactName) {
         this.appointmentID = appointmentID;
         this.title = title;
         this.description = description;
@@ -36,7 +36,7 @@ public class appointments {
         this.contactID = contactID;
 
         this.contactName = contactName;
-        this.userName = userName;
+        // this.userName = userName;
     }
 
     // Getters
@@ -51,7 +51,7 @@ public class appointments {
     public int getUserID() { return userID; }
     public int getContactID() { return contactID; }
     public String getContactName() { return contactName; }
-    public String getUserName() { return userName; }
+    // public String getUserName() { return userName; }
 
     // Setters
 
@@ -66,5 +66,5 @@ public class appointments {
     public void setUserID(int userID) { this.userID = userID; }
     public void setContactID(int contactID) { this.contactID = contactID; }
     public void setContactName(String contactName) { this.contactName = contactName; }
-    public void setUserName(String userName) { this.userName = userName; }
+    // public void setUserName(String userName) { this.userName = userName; }
 }

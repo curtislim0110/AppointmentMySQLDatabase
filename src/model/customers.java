@@ -47,4 +47,16 @@ public class customers {
     public void setFirstDivisionName(String firstDivisionName) { this.firstDivisionName = firstDivisionName; }
     public void setCountryID(int countryID) { this.countryID = countryID; }
     public void setCountryName(String countryName) { this.countryName = countryName; }
+
+    /**
+     * this toString method overrides the default toString method, which returns customer name instead
+     * of a pointer reference to a hash code when customers are displayed in a combo box
+     *
+     * @return customerName
+     */
+    @Override
+    public String toString() {
+        return (customerName);
+    }
+
 }

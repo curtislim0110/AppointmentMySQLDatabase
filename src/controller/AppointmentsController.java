@@ -1,6 +1,7 @@
 package controller;
 
 import DAO.appointmentsDAO;
+import DAO.contactsDAO;
 import DAO.customersDAO;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -162,8 +163,12 @@ public class AppointmentsController implements Initializable {
         tableAppointments.setItems(appointmentsDAO.getAllAppointments());
 
         // load combo boxes with appropriate data
-        // ObservableList<customers> customerList = customersDAO.getAllCustomers();
-        // comboContactName.setItems(customerList);
+
+        ObservableList<customers> customerList = customersDAO.getAllCustomers();
+        comboCustomerID.setItems(customerList);
+
+        ObservableList<contacts> contactList = contactsDAO.getAllContacts();
+        comboContactName.setItems(contactList);
 
     }
 
