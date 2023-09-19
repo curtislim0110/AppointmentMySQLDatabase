@@ -4,6 +4,7 @@ import DAO.appointmentsDAO;
 import DAO.contactsDAO;
 import DAO.customersDAO;
 import DAO.usersDAO;
+import helper.lambdaAlert;
 import helper.timeHelper;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -111,35 +112,52 @@ public class AppointmentsController implements Initializable {
     @FXML
     void onActionAddAppointment(ActionEvent event) {
 
-        // load data into local variables
-        String title = textTitle.getText();
-        String description = textDescription.getText();
-        String location = textLocation.getText();
-        String type = textType.getText();
+        // check for null values or empty text fields
+        if (textTitle.getText().isEmpty() || textDescription.getText().isEmpty() || textLocation.getText().isEmpty() || textType.getText().isEmpty()
+                || datePickerStart.getValue() == null || datePickerEnd.getValue() == null || comboStartTime.getValue() == null || comboEndTime.getValue() == null
+                || comboCustomerID == null || comboUserID == null || comboContactName == null)  {
+            currentAlert.lambdaAlertMethod(1);
+        }
 
-        LocalDate startDate = datePickerStart.getValue();
-        LocalDate endDate = datePickerEnd.getValue();
-        LocalTime startTime = comboStartTime.getSelectionModel().getSelectedItem();
-        LocalTime endTime = comboEndTime.getSelectionModel().getSelectedItem();
-        LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
-        LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
+        // else if appointment overlap checking
 
-        int customerID = comboCustomerID.getSelectionModel().getSelectedItem().getCustomerID();
-        int userID = comboUserID.getSelectionModel().getSelectedItem().getUser_ID();
-        int contactID = comboContactName.getSelectionModel().getSelectedItem().getContactID();
+        else {
+            // load data into local variables
+            String title = textTitle.getText();
+            String description = textDescription.getText();
+            String location = textLocation.getText();
+            String type = textType.getText();
 
+            LocalDate startDate = datePickerStart.getValue();
+            LocalDate endDate = datePickerEnd.getValue();
+            LocalTime startTime = comboStartTime.getSelectionModel().getSelectedItem();
+            LocalTime endTime = comboEndTime.getSelectionModel().getSelectedItem();
 
+            int customerID = comboCustomerID.getSelectionModel().getSelectedItem().getCustomerID();
+            int userID = comboUserID.getSelectionModel().getSelectedItem().getUser_ID();
+            int contactID = comboContactName.getSelectionModel().getSelectedItem().getContactID();
 
-        // add new appointment and refresh table
-        appointmentsDAO.addAppointment(title, description, location, type, startDateTime, endDateTime, customerID, userID, contactID);
-        tableAppointments.setItems(appointmentsDAO.getAllAppointments());
+            // if there are no errors or conflicts, add new appointment and refresh table
+            LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
+            LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
+            appointmentsDAO.addAppointment(title, description, location, type, startDateTime, endDateTime, customerID, userID, contactID);
+            tableAppointments.setItems(appointmentsDAO.getAllAppointments());
+        }
 
 
 
     }
 
+
     @FXML
     void onActionUpdateAppointment(ActionEvent event) {
+        if (true) {
+            currentAlert.lambdaAlertMethod(1);
+        }
+        else if (true) {
+            currentAlert.lambdaAlertMethod(1);
+        }
+
 
     }
 
@@ -162,6 +180,15 @@ public class AppointmentsController implements Initializable {
     void onActionAppointmentsWeek(ActionEvent event) {
 
     }
+
+    lambdaAlert currentAlert = e -> {
+        if (e == 1) {
+            Alert newAlert = new Alert(Alert.AlertType.ERROR);
+            newAlert.setTitle("Error");
+            newAlert.setContentText("Empty text field or missing selection");
+            newAlert.showAndWait();
+        }
+    };
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
