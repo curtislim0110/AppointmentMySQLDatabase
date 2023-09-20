@@ -241,7 +241,7 @@ public class AppointmentsController implements Initializable {
 
     @FXML
     void onActionAppointmentsMonth(ActionEvent event) {
-        // Get all appointments in a list, and initialize a second empty list to contain appointments up to 1 month away
+        // Get all appointments in a list, and initialize a second empty list to contain appointments up to 1 month away in the future
         ObservableList<appointments> allAppointmentsList = appointmentsDAO.getAllAppointments();
         ObservableList<appointments> monthAppointmentsList = FXCollections.observableArrayList();
 
@@ -259,7 +259,7 @@ public class AppointmentsController implements Initializable {
 
     @FXML
     void onActionAppointmentsWeek(ActionEvent event) {
-        // Get all appointments in a list, and initialize a second empty list to contain appointments up to 1 week away
+        // Get all appointments in a list, and initialize a second empty list to contain appointments up to 1 week away in the future
         ObservableList<appointments> allAppointmentsList = appointmentsDAO.getAllAppointments();
         ObservableList<appointments> weekAppointmentsList = FXCollections.observableArrayList();
 
@@ -267,7 +267,11 @@ public class AppointmentsController implements Initializable {
         LocalDateTime weekCalendar = LocalDateTime.now().plusWeeks(1);
 
         // Find all appointment starting times within 1 week of the current time
-
+        for (appointments singleAppointment : allAppointmentsList) {
+            if (singleAppointment.getAppointmentStart().isBefore(weekCalendar)) {
+                weekAppointmentsList.add(singleAppointment);
+            }
+        }
         tableAppointments.setItems(weekAppointmentsList);
 
     }
