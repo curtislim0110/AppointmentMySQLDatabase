@@ -65,5 +65,6 @@
       <Button layoutX="795.0" layoutY="494.0" mnemonicParsing="false" onAction="#onActionUpdate" text="Update Selected Customer" />
       <Button layoutX="809.0" layoutY="585.0" mnemonicParsing="false" onAction="#onActionMainMenu" text="Return to Main Menu" />
       <Button layoutX="798.0" layoutY="538.0" mnemonicParsing="false" onAction="#onActionDelete" text="Delete Selected Customer" />
+      <Label layoutX="608.0" layoutY="395.0" prefHeight="63.0" prefWidth="185.0" text="Mouse double click a customer in tableview to select a customer to update or delete" textAlignment="CENTER" wrapText="true" />
    </children>
 </AnchorPane>

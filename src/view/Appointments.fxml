@@ -90,7 +90,8 @@
       <RadioButton layoutX="1065.0" layoutY="32.0" mnemonicParsing="false" onAction="#onActionAppointmentsMonth" text="Month" toggleGroup="$radioApptView" />
       <RadioButton layoutX="1169.0" layoutY="32.0" mnemonicParsing="false" onAction="#onActionAppointmentsWeek" text="Week" toggleGroup="$radioApptView" />
       <Button layoutX="846.0" layoutY="471.0" mnemonicParsing="false" onAction="#onActionAddAppointment" text="Add Appointment" />
-      <Button layoutX="839.0" layoutY="538.0" mnemonicParsing="false" onAction="#onActionUpdateAppointment" text="Update Appointment" />
-      <Button layoutX="840.0" layoutY="601.0" mnemonicParsing="false" onAction="#onActionDeleteAppointment" text="Delete Appointment" />
+      <Button layoutX="814.0" layoutY="538.0" mnemonicParsing="false" onAction="#onActionUpdateAppointment" text="Update Selected Appointment" />
+      <Button layoutX="817.0" layoutY="605.0" mnemonicParsing="false" onAction="#onActionDeleteAppointment" text="Delete Selected Appointment" />
+      <Label layoutX="584.0" layoutY="356.0" prefHeight="63.0" prefWidth="204.0" text="Mouse double click an appointment in tableview to select an appointment to update or delete" textAlignment="CENTER" wrapText="true" />
    </children>
 </AnchorPane>

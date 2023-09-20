@@ -282,6 +282,10 @@ public class AppointmentsController implements Initializable {
         }
         // otherwise, load the selected row of data from the table into the textboxes
         else {
+
+            comboCustomerID.getSelectionModel().clearSelection();
+            comboCustomerID.valueProperty().set(null);
+
             // load text boxes
             appointments mouseclickAppointment = tableAppointments.getSelectionModel().getSelectedItem();
             textAppointmentID.setText(Integer.toString(mouseclickAppointment.getAppointmentID()));

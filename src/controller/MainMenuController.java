@@ -59,6 +59,10 @@ public class MainMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
 
+//write  login 15m alert here, or as called helper function
+        // call all appointments and make two lists like weekly/monthly view. store all appointments within 15m in the 15m list using localdatetime and for-each looping
+        // lastly, display a custom message with appointment details
+
 
     }
 }
