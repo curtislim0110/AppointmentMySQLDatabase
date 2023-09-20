@@ -107,7 +107,6 @@ public class AppointmentsController implements Initializable {
 
     @FXML
     void onActionAddAppointment(ActionEvent event) {
-
         // check for null values or empty text fields and display an error message if input is missing
         if (textTitle.getText().isEmpty() || textDescription.getText().isEmpty() || textLocation.getText().isEmpty() || textType.getText().isEmpty()
                 || datePickerStart.getValue() == null || datePickerEnd.getValue() == null || comboStartTime.getValue() == null || comboEndTime.getValue() == null
@@ -121,7 +120,6 @@ public class AppointmentsController implements Initializable {
             String location = textLocation.getText();
             String type = textType.getText();
 
-            // need to somehow get dates outside of if statements for appointment comparison
             LocalDate startDate = datePickerStart.getValue();
             LocalDate endDate = datePickerEnd.getValue();
             LocalTime startTime = comboStartTime.getSelectionModel().getSelectedItem();
@@ -156,13 +154,56 @@ public class AppointmentsController implements Initializable {
 
     @FXML
     void onActionUpdateAppointment(ActionEvent event) {
+        // check for null values or empty text fields and display an error message if input is missing
+        if (textTitle.getText().isEmpty() || textDescription.getText().isEmpty() || textLocation.getText().isEmpty() || textType.getText().isEmpty()
+                || datePickerStart.getValue() == null || datePickerEnd.getValue() == null || comboStartTime.getValue() == null || comboEndTime.getValue() == null
+                || comboCustomerID == null || comboUserID == null || comboContactName == null)  {
+            currentAlert.lambdaAlertMethod(1);
+        }
+        else {
+            // if there is input for all textboxes and combo box selections have been made, load data into local variables
+            int appointmentID = Integer.parseInt(textAppointmentID.getText());
+            String title = textTitle.getText();
+            String description = textDescription.getText();
+            String location = textLocation.getText();
+            String type = textType.getText();
 
+            LocalDate startDate = datePickerStart.getValue();
+            LocalDate endDate = datePickerEnd.getValue();
+            LocalTime startTime = comboStartTime.getSelectionModel().getSelectedItem();
+            LocalTime endTime = comboEndTime.getSelectionModel().getSelectedItem();
+            LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
+            LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
 
+            int customerID = comboCustomerID.getSelectionModel().getSelectedItem().getCustomerID();
+            int userID = comboUserID.getSelectionModel().getSelectedItem().getUser_ID();
+            int contactID = comboContactName.getSelectionModel().getSelectedItem().getContactID();
 
+            // verify that start time is before end time
+            if (startDateTime.isAfter(endDateTime) || startDateTime.isEqual(endDateTime)) {
+                Alert newAlert = new Alert(Alert.AlertType.ERROR);
+                newAlert.setTitle("Error");
+                newAlert.setContentText("Starting date/time must not be the equal to as or after ending date/time");
+                newAlert.showAndWait();
+            }
+
+            // check for overlapping appointments, the appointment should be able to change type without causing an overlap conflict
+            else if (appointments.modifyConflictCheck(customerID, startDateTime, endDateTime, appointmentID)) {
+                // error alerts moved into addConflictCheck method
+            }
+
+            // if there are no errors or overlapping appointments, add a new appointment and refresh table
+            else {
+                appointmentsDAO.updateAppointment(appointmentID, title, description, location, type,
+                        startDateTime, endDateTime, customerID, userID, contactID);
+                tableAppointments.setItems(appointmentsDAO.getAllAppointments());
+            }
+        }
     }
 
     @FXML
     void onActionDeleteAppointment(ActionEvent event) {
+        // first verify an appointment has been selected
         appointments selectedAppointment = tableAppointments.getSelectionModel().getSelectedItem();
         if (selectedAppointment == null) {
             currentAlert.lambdaAlertMethod(1);
@@ -189,7 +230,6 @@ public class AppointmentsController implements Initializable {
                 deleteconfirm.close();
             }
         }
-
     }
 
     @FXML
@@ -264,7 +304,7 @@ public class AppointmentsController implements Initializable {
         if (e == 2) {
             Alert newAlert = new Alert(Alert.AlertType.ERROR);
             newAlert.setTitle("Error");
-            newAlert.setContentText("Select an appointment to delete first");
+            newAlert.setContentText("Select an appointment first");
             newAlert.showAndWait();
         }
     };
