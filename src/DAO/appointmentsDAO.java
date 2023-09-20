@@ -102,7 +102,7 @@ public class appointmentsDAO {
         }
     }
 
-    // this method is used for the report: contact
+    // this method is used for the report: contact schedule
     public static ObservableList<appointments> getApptByContact(int contactID) {
         ObservableList<appointments> contactappointmentList = FXCollections.observableArrayList();
 
@@ -136,6 +136,42 @@ public class appointmentsDAO {
             e.printStackTrace();
         }
         return contactappointmentList;
+    }
+
+    // this method is used for the report: user schedule
+    public static ObservableList<appointments> getApptByUser(int userID) {
+        ObservableList<appointments> userappointmentList = FXCollections.observableArrayList();
+
+        try {
+            String sql = "SELECT * FROM appointments " +
+                    "INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID " +
+                    "WHERE appointments.User_ID=? " +
+                    "ORDER BY appointments.Appointment_ID";
+            PreparedStatement ps = JDBC.JDBCconnection.prepareStatement(sql);
+            ps.setInt(1, userID);
+
+            ResultSet rsGetAll = ps.executeQuery();
+            while (rsGetAll.next()) {
+                int appointmentID = rsGetAll.getInt("Appointment_ID");
+                String title = rsGetAll.getString("Title");
+                String description = rsGetAll.getString("Description");
+                String location = rsGetAll.getString("Location");
+                String type = rsGetAll.getString("Type");
+                LocalDateTime starttime = rsGetAll.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime endtime = rsGetAll.getTimestamp("End").toLocalDateTime();
+                int customerID = rsGetAll.getInt("Customer_ID");
+                userID = rsGetAll.getInt("User_ID");
+                int contactID = rsGetAll.getInt("Contact_ID");
+                String contactName = rsGetAll.getString("Contact_Name");
+
+                appointments currentappointment = new appointments(appointmentID, title, description,
+                        location, type, starttime, endtime, customerID, userID, contactID, contactName);
+                userappointmentList.add(currentappointment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userappointmentList;
     }
 
 }

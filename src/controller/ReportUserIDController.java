@@ -2,6 +2,7 @@ package controller;
 
 import DAO.appointmentsDAO;
 import DAO.contactsDAO;
+import DAO.usersDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.appointments;
 import model.contacts;
+import model.users;
 
 import java.io.IOException;
 import java.net.URL;
@@ -53,7 +55,7 @@ public class ReportUserIDController implements Initializable {
     private TableColumn<?, ?> columnUserID;
 
     @FXML
-    private ComboBox<contacts> comboboxContacts;
+    private ComboBox<users> comboboxUsers;
 
     @FXML
     private TableView<appointments> tableAppointments;
@@ -68,11 +70,11 @@ public class ReportUserIDController implements Initializable {
     }
 
     @FXML
-    void onActionComboContact(ActionEvent event) {
+    void onActionComboUser(ActionEvent event) {
 
         // load table with appointments based on contactID
-        int contactID = comboboxContacts.getSelectionModel().getSelectedItem().getContactID();
-        tableAppointments.setItems(appointmentsDAO.getApptByContact(contactID));
+        int userID = comboboxUsers.getSelectionModel().getSelectedItem().getUser_ID();
+        tableAppointments.setItems(appointmentsDAO.getApptByUser(userID));
     }
 
     @Override
@@ -90,7 +92,7 @@ public class ReportUserIDController implements Initializable {
         columnUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
         columnContactName.setCellValueFactory(new PropertyValueFactory<>("contactName"));
 
-        // initialist combo box list of contacts
-        comboboxContacts.setItems(contactsDAO.getAllContacts());
+        // initialize combo box list of users
+        comboboxUsers.setItems(usersDAO.getUsersList());
     }
 }

@@ -31,6 +31,6 @@
          </columns>
       </TableView>
       <Label layoutX="1038.0" layoutY="63.0" text="User:" />
-      <ComboBox fx:id="comboboxContacts" layoutX="1083.0" layoutY="59.0" onAction="#onActionComboContact" prefWidth="150.0" promptText="Select User" />
+      <ComboBox fx:id="comboboxUsers" layoutX="1083.0" layoutY="59.0" onAction="#onActionComboUser" prefWidth="150.0" promptText="Select User" />
    </children>
 </AnchorPane>
