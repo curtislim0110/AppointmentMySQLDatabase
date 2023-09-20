@@ -8,18 +8,28 @@ import model.appointments;
 
 import java.time.LocalDateTime;
 
+/**
+ * This class contains a function for display alerts related to logins
+ *
+ */
+
 public class loginAlert {
+
+    /**
+     * This method loads a list of appointments that begin within 15 minutes of a successful login.  Each appointment
+     * that is within 15 minutes will display a custom login message with the appointment ID and starting date and time
+     */
 
     public static void loginAppointmentAlert() {
         // Get all appointments in a list, and initialize a second empty list to contain appointments up to 15 minutes away in the future
         ObservableList<appointments> allAppointmentsList = appointmentsDAO.getAllAppointments();
         ObservableList<appointments> immediateList = FXCollections.observableArrayList();
 
-        // Find the date 1 week away from the current local time
-        LocalDateTime immediateCalendar = LocalDateTime.now().plusMinutes(360);
+        // Find the time 15 minutes from the current local time
+        LocalDateTime immediateCalendar = LocalDateTime.now().plusMinutes(15);
         int appointmentCount = 0;
 
-        // Find all appointment starting times within 1 week of the current time
+        // Find all appointment starting times within 15 minutes of the current time
         for (appointments singleAppointment : allAppointmentsList) {
             if (singleAppointment.getAppointmentStart().isBefore(immediateCalendar) && singleAppointment.getAppointmentStart().isAfter(LocalDateTime.now())) {
                 immediateList.add(singleAppointment);
@@ -33,6 +43,7 @@ public class loginAlert {
             newAlert.setContentText("No appointments starting within 15 minutes of login.");
             newAlert.showAndWait();
         }
+        // loop through alarm list and display an alert message for each alarm
         else if (appointmentCount > 0) {
             for (appointments singleAppointment : immediateList) {
                 Alert newAlert = new Alert(Alert.AlertType.INFORMATION);
