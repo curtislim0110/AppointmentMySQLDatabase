@@ -76,7 +76,6 @@ public class LoginScreenController implements Initializable {
             alert.setTitle(languageBundle.getString("error"));
             alert.setContentText(languageBundle.getString("mistake"));
             alert.show();
-
         }
 
         // if usersLogin returns true, a match was found in the database. the successful login attempt is recorded in login_activity.txt and the screen changes to the main menu
