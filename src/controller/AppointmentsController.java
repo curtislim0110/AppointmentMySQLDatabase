@@ -3,6 +3,7 @@ package controller;
 import DAO.*;
 import helper.lambdaAlert;
 import helper.timeHelper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -234,16 +235,40 @@ public class AppointmentsController implements Initializable {
 
     @FXML
     void onActionAppointmentsAll(ActionEvent event) {
-
+        ObservableList<appointments> allAppointmentsList = appointmentsDAO.getAllAppointments();
+        tableAppointments.setItems(allAppointmentsList);
     }
 
     @FXML
     void onActionAppointmentsMonth(ActionEvent event) {
+        // Get all appointments in a list, and initialize a second empty list to contain appointments up to 1 month away
+        ObservableList<appointments> allAppointmentsList = appointmentsDAO.getAllAppointments();
+        ObservableList<appointments> monthAppointmentsList = FXCollections.observableArrayList();
 
+        // Find the date 1 month away from the current local time
+        LocalDateTime monthCalendar = LocalDateTime.now().plusMonths(1);
+
+        // Find all appointment starting times within 1 month of the current time
+        for (appointments singleAppointment : allAppointmentsList) {
+            if (singleAppointment.getAppointmentStart().isBefore(monthCalendar)) {
+                monthAppointmentsList.add(singleAppointment);
+            }
+        }
+        tableAppointments.setItems(monthAppointmentsList);
     }
 
     @FXML
     void onActionAppointmentsWeek(ActionEvent event) {
+        // Get all appointments in a list, and initialize a second empty list to contain appointments up to 1 week away
+        ObservableList<appointments> allAppointmentsList = appointmentsDAO.getAllAppointments();
+        ObservableList<appointments> weekAppointmentsList = FXCollections.observableArrayList();
+
+        // Find the date 1 qwwk away from the current local time
+        LocalDateTime weekCalendar = LocalDateTime.now().plusWeeks(1);
+
+        // Find all appointment starting times within 1 week of the current time
+
+        tableAppointments.setItems(weekAppointmentsList);
 
     }
 

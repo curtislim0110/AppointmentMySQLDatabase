@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -82,9 +83,12 @@
          </children>
       </GridPane>
       <Button layoutX="838.0" layoutY="669.0" mnemonicParsing="false" onAction="#onActionMainMenu" text="Return to Main Menu" />
-      <RadioButton layoutX="902.0" layoutY="32.0" mnemonicParsing="false" onAction="#onActionAppointmentsAll" selected="true" text="All Appointments" />
-      <RadioButton layoutX="1065.0" layoutY="32.0" mnemonicParsing="false" onAction="#onActionAppointmentsMonth" text="Month" />
-      <RadioButton layoutX="1169.0" layoutY="32.0" mnemonicParsing="false" onAction="#onActionAppointmentsWeek" text="Week" />
+      <RadioButton layoutX="902.0" layoutY="32.0" mnemonicParsing="false" onAction="#onActionAppointmentsAll" selected="true" text="All Appointments">
+         <toggleGroup>
+            <ToggleGroup fx:id="radioApptView" />
+         </toggleGroup></RadioButton>
+      <RadioButton layoutX="1065.0" layoutY="32.0" mnemonicParsing="false" onAction="#onActionAppointmentsMonth" text="Month" toggleGroup="$radioApptView" />
+      <RadioButton layoutX="1169.0" layoutY="32.0" mnemonicParsing="false" onAction="#onActionAppointmentsWeek" text="Week" toggleGroup="$radioApptView" />
       <Button layoutX="846.0" layoutY="471.0" mnemonicParsing="false" onAction="#onActionAddAppointment" text="Add Appointment" />
       <Button layoutX="839.0" layoutY="538.0" mnemonicParsing="false" onAction="#onActionUpdateAppointment" text="Update Appointment" />
       <Button layoutX="840.0" layoutY="601.0" mnemonicParsing="false" onAction="#onActionDeleteAppointment" text="Delete Appointment" />
