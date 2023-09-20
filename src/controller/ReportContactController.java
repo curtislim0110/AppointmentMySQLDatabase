@@ -1,6 +1,7 @@
 package controller;
 
-import DAO.reportsortedDAO;
+import DAO.contactsDAO;
+import DAO.countriesDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,24 +12,50 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.appointments;
-import model.reportsorted;
+import model.contacts;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ReportContactController implements Initializable {
-
+    @FXML
+    private TableColumn<?, ?> columnAppointmentID;
 
     @FXML
-    private ComboBox<?> comboboxContacts;
+    private TableColumn<?, ?> columnContactName;
+
+    @FXML
+    private TableColumn<?, ?> columnCustomerID;
+
+    @FXML
+    private TableColumn<?, ?> columnDescription;
+
+    @FXML
+    private TableColumn<?, ?> columnEndTime;
+
+    @FXML
+    private TableColumn<?, ?> columnLocation;
+
+    @FXML
+    private TableColumn<?, ?> columnStartTime;
+
+    @FXML
+    private TableColumn<?, ?> columnTitle;
+
+    @FXML
+    private TableColumn<?, ?> columnTypeReport2;
+
+    @FXML
+    private TableColumn<?, ?> columnUserID;
+
+    @FXML
+    private ComboBox<contacts> comboboxContacts;
 
     @FXML
     private TableView<appointments> tableAppointments;
-
 
     @FXML
     void onActionMainMenu(ActionEvent event) throws IOException {
@@ -39,10 +66,16 @@ public class ReportContactController implements Initializable {
         stage.show();
     }
 
+    @FXML
+    void onActionComboContact(ActionEvent event) {
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        // Initialize contact schedule with combo box and prompt
-        comboboxContacts.setPromptText("Select Contact");
+        // initialist combo box list of contacts
+        comboboxContacts.setItems(contactsDAO.getAllContacts());
+
     }
 }
