@@ -102,4 +102,40 @@ public class appointmentsDAO {
         }
     }
 
+    // this method is used for the report: contact
+    public static ObservableList<appointments> getApptByContact(int contactID) {
+        ObservableList<appointments> contactappointmentList = FXCollections.observableArrayList();
+
+        try {
+            String sql = "SELECT * FROM appointments " +
+                    "INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID " +
+                    "WHERE appointments.Contact_ID=? " +
+                    "ORDER BY appointments.Appointment_ID";
+            PreparedStatement ps = JDBC.JDBCconnection.prepareStatement(sql);
+            ps.setInt(1, contactID);
+
+            ResultSet rsGetAll = ps.executeQuery();
+            while (rsGetAll.next()) {
+                int appointmentID = rsGetAll.getInt("Appointment_ID");
+                String title = rsGetAll.getString("Title");
+                String description = rsGetAll.getString("Description");
+                String location = rsGetAll.getString("Location");
+                String type = rsGetAll.getString("Type");
+                LocalDateTime starttime = rsGetAll.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime endtime = rsGetAll.getTimestamp("End").toLocalDateTime();
+                int customerID = rsGetAll.getInt("Customer_ID");
+                int userID = rsGetAll.getInt("User_ID");
+                contactID = rsGetAll.getInt("Contact_ID");
+                String contactName = rsGetAll.getString("Contact_Name");
+
+                appointments currentappointment = new appointments(appointmentID, title, description,
+                        location, type, starttime, endtime, customerID, userID, contactID, contactName);
+                contactappointmentList.add(currentappointment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return contactappointmentList;
+    }
+
 }
