@@ -21,6 +21,7 @@ public class loginAlert {
      */
 
     public static void loginAppointmentAlert() {
+
         // Get all appointments in a list, and initialize a second empty list to contain appointments up to 15 minutes away in the future
         ObservableList<appointments> allAppointmentsList = appointmentsDAO.getAllAppointments();
         ObservableList<appointments> immediateList = FXCollections.observableArrayList();
@@ -37,14 +38,17 @@ public class loginAlert {
             }
         }
 
+        // if there are no appointments, display an appropriate message
         if (appointmentCount == 0) {
             Alert newAlert = new Alert(Alert.AlertType.INFORMATION);
             newAlert.setTitle("Appointment");
             newAlert.setContentText("No appointments starting within 15 minutes of login.");
             newAlert.showAndWait();
         }
-        // loop through alarm list and display an alert message for each alarm
+
+        // if there is at least 1 appointment, loop through alarm list and display an alert message for each alarm
         else if (appointmentCount > 0) {
+
             for (appointments singleAppointment : immediateList) {
                 Alert newAlert = new Alert(Alert.AlertType.INFORMATION);
                 newAlert.setTitle("Appointment");
@@ -52,8 +56,5 @@ public class loginAlert {
                 newAlert.showAndWait();
             }
         }
-
-
-
     }
 }

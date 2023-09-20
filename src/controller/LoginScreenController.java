@@ -1,5 +1,6 @@
 package controller;
 
+import helper.lambdaTextInterface;
 import helper.loginAlert;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -59,9 +60,6 @@ public class LoginScreenController implements Initializable {
         String usernameInput = usernametxt.getText();
         String passwordInput = passwordtxt.getText();
 
-        // call the usersLogin method to see if the login input has a match in the database. if there is a match, store the login data in currentuser
-        users currentuser = usersLogin(usernameInput, passwordInput);
-
         // If the username and/or password is blank, display language appropriate error message.
         if (usernameInput.isEmpty() || passwordInput.isEmpty() ) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -70,9 +68,9 @@ public class LoginScreenController implements Initializable {
             alert.show();
         }
 
-        // currentuser is null if there is no matching user in the database. this failed login attempt is recorded in login_activity.txt
-        else if (currentuser == null) {
-            loginAttemptTXT(false);
+        // if usersLogin returns false, this failed login attempt is recorded in login_activity.txt
+        else if (!usersLogin(usernameInput, passwordInput)) {
+            loginAttemptTXT.lambdaBoolean(false);
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle(languageBundle.getString("error"));
@@ -81,9 +79,9 @@ public class LoginScreenController implements Initializable {
 
         }
 
-        // if currentuser is not null, a match was found in the database. the successful login attempt is recorded in login_activity.txt and the screen changes to the main menu
-        else if (currentuser != null) {
-            loginAttemptTXT(true);
+        // if usersLogin returns true, a match was found in the database. the successful login attempt is recorded in login_activity.txt and the screen changes to the main menu
+        else if (usersLogin(usernameInput, passwordInput)) {
+            loginAttemptTXT.lambdaBoolean(true);
 
             // before entering main menu, call login alert function to check for appointments within 15 minutes of login
             loginAlert.loginAppointmentAlert();
@@ -98,23 +96,25 @@ public class LoginScreenController implements Initializable {
 
     }
 
-    public void loginAttemptTXT(boolean loginBooleanType) throws IOException {
-
+    /**
+     * Lambda Expression #2, interface and description is in /helper/lambdaTextInterface
+     */
+    lambdaTextInterface loginAttemptTXT = successBoolean -> {
         String filename = "login_activity.txt";
         FileWriter currentFileWriter = new FileWriter(filename, true);
         PrintWriter loginOutputFile = new PrintWriter(currentFileWriter);
 
-        if (loginBooleanType) {
+        if (successBoolean) {
             loginOutputFile.println(usernametxt.getText() + " had a successful login at " + ZonedDateTime.now(ZoneId.of("UTC")));
         }
 
-        if (!loginBooleanType) {
+        else if (!successBoolean) {
             loginOutputFile.println(usernametxt.getText() + " had a failed login at " + ZonedDateTime.now(ZoneId.of("UTC")));
         }
 
         // File must be closed or else output text file is blank
         loginOutputFile.close();
-    }
+    };
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

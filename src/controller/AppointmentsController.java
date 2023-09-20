@@ -1,7 +1,7 @@
 package controller;
 
 import DAO.*;
-import helper.lambdaAlert;
+import helper.lambdaAlertInterface;
 import helper.timeHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -334,7 +334,7 @@ public class AppointmentsController implements Initializable {
         }
     }
 
-    lambdaAlert currentAlert = e -> {
+    lambdaAlertInterface currentAlert = e -> {
         if (e == 1) {
             Alert newAlert = new Alert(Alert.AlertType.ERROR);
             newAlert.setTitle("Error");

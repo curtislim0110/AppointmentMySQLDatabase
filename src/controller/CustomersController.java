@@ -4,7 +4,7 @@ import DAO.appointmentsDAO;
 import DAO.countriesDAO;
 import DAO.customersDAO;
 import DAO.firstleveldivisionsDAO;
-import helper.lambdaAlert;
+import helper.lambdaAlertInterface;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -305,9 +305,9 @@ public class CustomersController implements Initializable {
     }
 
     /**
-     * Lambda Expression, interface for lambdaAlert is in /helper/lambdaAlert
+     * Lambda Expression #1, interface and description is in /helper/lambdaAlertInterface
      */
-    lambdaAlert currentAlert = e -> {
+    lambdaAlertInterface currentAlert = e -> {
         if (e == 1) {
             Alert newAlert = new Alert(Alert.AlertType.ERROR);
             newAlert.setTitle("Error");

@@ -34,7 +34,7 @@ public class usersDAO {
         return allusersList;
     }
 
-    public static users usersLogin(String User_Name, String Password) {
+    public static boolean usersLogin(String User_Name, String Password) {
         try {
             String sql = "SELECT * FROM users WHERE User_Name = ? AND Password = ?";
             PreparedStatement ps = JDBC.JDBCconnection.prepareStatement(sql);
@@ -42,20 +42,18 @@ public class usersDAO {
             ps.setString(2, Password);
             ResultSet rs = ps.executeQuery();
 
-            users currentuser = null;
-
-            if (rs.next()) {
-                int userID = rs.getInt("User_ID");
-                User_Name = rs.getString("User_Name");
-                Password = rs.getString("Password");
-                currentuser = new users(userID, User_Name, Password);
+            while (rs.next()) {
+                String databaseUser_Name = rs.getString("User_Name");
+                String databasePassword = rs.getString("Password");
+                if (User_Name.equals(databaseUser_Name) && Password.equals(databasePassword)) {
+                    return true;
+                }
             }
-            return currentuser;
-
+            return false;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return false;
     }
 
     // used to set a value in the appointments screen combo box for users

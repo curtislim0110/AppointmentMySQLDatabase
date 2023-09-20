@@ -21,7 +21,7 @@ public class timeHelper {
         // find the first hour to start the list of appointment times
         int firstHour = localzonetime.getHour();
 
-        // find the final hour in which to stop listing appointment times, based on 30 minute appointment times and a 14 hour workday
+        // find the final hour in which to stop listing appointment times.  There are 27 half hour appointment times, based on 30 minute appointment times and a 14 hour workday
         int finalhour = firstHour + 27;
 
         // iterate over time objects and add them to timeList for combo box display
