@@ -139,7 +139,13 @@ public class AppointmentsController implements Initializable {
                 newAlert.setContentText("Starting date/time must not be equal to or after ending date/time");
                 newAlert.showAndWait();
             }
-
+            // appointments must be on the same local business day, they cannot extend over multiple days outside of EST office hours
+            else if (!startDate.isEqual(endDate)) {
+                Alert newAlert = new Alert(Alert.AlertType.ERROR);
+                newAlert.setTitle("Error");
+                newAlert.setContentText("Appointments must be scheduled on the same business day");
+                newAlert.showAndWait();
+            }
             // check for overlapping appointments
             else if (appointments.addConflictCheck(customerID, startDateTime, endDateTime)) {
                 // error alerts moved into addConflictCheck method
@@ -187,7 +193,13 @@ public class AppointmentsController implements Initializable {
                 newAlert.setContentText("Starting date/time must not be equal to or after ending date/time");
                 newAlert.showAndWait();
             }
-
+            // appointments must be on the same local business day, they cannot extend over multiple days outside of EST office hours
+            else if (!startDate.isEqual(endDate)) {
+                Alert newAlert = new Alert(Alert.AlertType.ERROR);
+                newAlert.setTitle("Error");
+                newAlert.setContentText("Appointments must be scheduled on the same business day");
+                newAlert.showAndWait();
+            }
             // check for overlapping appointments, the appointment should be able to change type without causing an overlap conflict
             else if (appointments.modifyConflictCheck(customerID, startDateTime, endDateTime, appointmentID)) {
                 // error alerts moved into addConflictCheck method
