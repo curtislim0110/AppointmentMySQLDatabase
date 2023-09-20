@@ -1,5 +1,6 @@
 package controller;
 
+import helper.loginAlert;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -83,6 +84,9 @@ public class LoginScreenController implements Initializable {
         // if currentuser is not null, a match was found in the database. the successful login attempt is recorded in login_activity.txt and the screen changes to the main menu
         else if (currentuser != null) {
             loginAttemptTXT(true);
+
+            // before entering main menu, call login alert function to check for appointments within 15 minutes of login
+            loginAlert.loginAppointmentAlert();
 
             Parent root = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
             Scene scene = new Scene(root);

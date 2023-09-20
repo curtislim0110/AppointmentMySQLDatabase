@@ -64,7 +64,5 @@ public class MainMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // call login alert function to check for appointsments withing 15 minutes of login
-        loginAlert.loginAppointmentAlert();
     }
 }
