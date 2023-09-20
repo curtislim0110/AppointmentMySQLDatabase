@@ -48,14 +48,17 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void onActionReports(ActionEvent event) throws IOException {
-        System.out.println("Reports Button Used");
+        Parent root = FXMLLoader.load(getClass().getResource("../view/Reports.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Main Menu Initialized!");
+
+
 
     }
-
 }

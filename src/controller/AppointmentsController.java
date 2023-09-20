@@ -273,7 +273,6 @@ public class AppointmentsController implements Initializable {
             }
         }
         tableAppointments.setItems(weekAppointmentsList);
-
     }
 
     @FXML
