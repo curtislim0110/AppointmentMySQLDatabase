@@ -2,17 +2,17 @@ package DAO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.monthtypereports;
+import model.reportsorted;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class monthtypereportsDAO {
+public class reportsortedDAO {
 
-    public static ObservableList<monthtypereports> getMonthTypeReport() {
+    public static ObservableList<reportsorted> getMonthTypeReport() {
 
-        ObservableList<monthtypereports> reportlist = FXCollections.observableArrayList();
+        ObservableList<reportsorted> reportlist = FXCollections.observableArrayList();
         try{
             String sql = "SELECT monthname(Start), Type, Count(*) AS Totalcount FROM appointments GROUP BY monthname(Start), Type";
             PreparedStatement ps = JDBC.JDBCconnection.prepareStatement(sql);
@@ -22,7 +22,7 @@ public class monthtypereportsDAO {
                 String month = rsGetAll.getString("monthname(Start)");
                 String type = rsGetAll.getString("Type");
                 int totalcount = rsGetAll.getInt("Totalcount");
-                monthtypereports currentreport = new monthtypereports(month, type, totalcount);
+                reportsorted currentreport = new reportsorted(month, type, totalcount);
                 reportlist.add(currentreport);
                 }
             }

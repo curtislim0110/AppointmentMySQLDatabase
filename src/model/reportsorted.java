@@ -1,12 +1,12 @@
 package model;
 
-public class monthtypereports {
+public class reportsorted {
 
     private String month;
     private String type;
     private int appointmentcount;
 
-    public monthtypereports(String month, String type, int appointmentcount) {
+    public reportsorted(String month, String type, int appointmentcount) {
         this.month = month;
         this.type = type;
         this.appointmentcount = appointmentcount;

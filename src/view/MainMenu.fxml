@@ -12,8 +12,10 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="customersbutton" layoutX="264.0" layoutY="103.0" mnemonicParsing="false" onAction="#onActionCustomers" text="Customers" />
-      <Button fx:id="appointmentsbutton" layoutX="255.0" layoutY="175.0" mnemonicParsing="false" onAction="#onActionAppointments" text="Appointments" />
-      <Button fx:id="reportsbutton" layoutX="272.0" layoutY="247.0" mnemonicParsing="false" onAction="#onActionReports" text="Reports" />
+      <Button layoutX="264.0" layoutY="81.0" mnemonicParsing="false" onAction="#onActionCustomers" text="Customers" />
+      <Button layoutX="254.0" layoutY="136.0" mnemonicParsing="false" onAction="#onActionAppointments" text="Appointments" />
+      <Button layoutX="225.0" layoutY="252.0" mnemonicParsing="false" onAction="#onActionReportContactSchedule" text="Report: Contact Schedule" />
+      <Button layoutX="189.0" layoutY="194.0" mnemonicParsing="false" onAction="#onActionReportSortedCustomer" text="Report: Sorted Customer Appointments" />
+      <Button layoutX="252.0" layoutY="309.0" mnemonicParsing="false" onAction="#onActionReportCustom" text="Report: Custom" />
    </children>
 </AnchorPane>
