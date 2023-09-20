@@ -263,7 +263,7 @@ public class AppointmentsController implements Initializable {
         ObservableList<appointments> allAppointmentsList = appointmentsDAO.getAllAppointments();
         ObservableList<appointments> weekAppointmentsList = FXCollections.observableArrayList();
 
-        // Find the date 1 qwwk away from the current local time
+        // Find the date 1 week away from the current local time
         LocalDateTime weekCalendar = LocalDateTime.now().plusWeeks(1);
 
         // Find all appointment starting times within 1 week of the current time

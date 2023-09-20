@@ -1,5 +1,9 @@
 package controller;
 
+import DAO.appointmentsDAO;
+import helper.loginAlert;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,12 +11,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import model.appointments;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -57,12 +64,7 @@ public class MainMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
-//write  login 15m alert here, or as called helper function
-        // call all appointments and make two lists like weekly/monthly view. store all appointments within 15m in the 15m list using localdatetime and for-each looping
-        // lastly, display a custom message with appointment details
-
-
+        // call login alert function to check for appointsments withing 15 minutes of login
+        loginAlert.loginAppointmentAlert();
     }
 }
