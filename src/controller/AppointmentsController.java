@@ -135,7 +135,7 @@ public class AppointmentsController implements Initializable {
             if (startDateTime.isAfter(endDateTime) || startDateTime.isEqual(endDateTime)) {
                 Alert newAlert = new Alert(Alert.AlertType.ERROR);
                 newAlert.setTitle("Error");
-                newAlert.setContentText("Starting date/time must not be the equal to as or after ending date/time");
+                newAlert.setContentText("Starting date/time must not be equal to or after ending date/time");
                 newAlert.showAndWait();
             }
 
@@ -183,7 +183,7 @@ public class AppointmentsController implements Initializable {
             if (startDateTime.isAfter(endDateTime) || startDateTime.isEqual(endDateTime)) {
                 Alert newAlert = new Alert(Alert.AlertType.ERROR);
                 newAlert.setTitle("Error");
-                newAlert.setContentText("Starting date/time must not be the equal to as or after ending date/time");
+                newAlert.setContentText("Starting date/time must not be equal to or after ending date/time");
                 newAlert.showAndWait();
             }
 
