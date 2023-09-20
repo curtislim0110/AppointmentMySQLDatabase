@@ -55,10 +55,12 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void onActionReportCustom(ActionEvent event) throws IOException {
-
+        Parent root = FXMLLoader.load(getClass().getResource("../view/ReportUserID.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

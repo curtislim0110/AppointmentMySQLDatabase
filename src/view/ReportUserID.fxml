@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="636.0" prefWidth="1281.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportContactController">
+<AnchorPane prefHeight="636.0" prefWidth="1281.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportUserIDController">
    <children>
-      <Label layoutX="417.0" layoutY="54.0" text="Report: Contact Schedule by Appointment">
+      <Label layoutX="434.0" layoutY="54.0" text="Report: User Schedule by Appointment">
          <font>
             <Font size="24.0" />
          </font>
@@ -30,7 +30,7 @@
             <TableColumn fx:id="columnContactName" prefWidth="106.0" text="Contact Name" />
          </columns>
       </TableView>
-      <Label layoutX="1026.0" layoutY="63.0" text="Contact:" />
-      <ComboBox fx:id="comboboxContacts" layoutX="1083.0" layoutY="59.0" onAction="#onActionComboContact" prefWidth="150.0" promptText="Select Contact" />
+      <Label layoutX="1038.0" layoutY="63.0" text="User:" />
+      <ComboBox fx:id="comboboxContacts" layoutX="1083.0" layoutY="59.0" onAction="#onActionComboContact" prefWidth="150.0" promptText="Select User" />
    </children>
 </AnchorPane>
