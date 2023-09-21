@@ -16,7 +16,7 @@ public class usersDAO {
 
     /**
      * This static method returns a list of all users in the database.
-     * @return
+     * @return returns a list of all users
      */
     public static ObservableList<users> getUsersList() {
         ObservableList<users> allusersList = FXCollections.observableArrayList();
@@ -47,7 +47,7 @@ public class usersDAO {
      * if there is no match.
      * @param User_Name user name
      * @param Password user password
-     * @return
+     * @return returns a boolean, true for a match and false for no match
      */
     public static boolean usersLogin(String User_Name, String Password) {
         try {
@@ -74,7 +74,7 @@ public class usersDAO {
     /**
      * This method is used to set a value in the appointments screen combo box for user name
      * @param userID
-     * @return
+     * @return returns a string of username based on userID
      */
     public static String getUserName(int userID) {
         try {
@@ -92,7 +92,7 @@ public class usersDAO {
     /**
      * This method is used to set a value in the appointments screen combo box for user password
      * @param userID
-     * @return
+     * @return returns a string of user password based on userID
      */
     public static String getPassword(int userID) {
         try {
