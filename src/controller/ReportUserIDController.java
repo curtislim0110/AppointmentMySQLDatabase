@@ -1,7 +1,6 @@
 package controller;
 
 import DAO.appointmentsDAO;
-import DAO.contactsDAO;
 import DAO.usersDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,13 +15,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.appointments;
-import model.contacts;
 import model.users;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This class controls the fxml screen that displays a report of appointments filtered by user
+ */
 public class ReportUserIDController implements Initializable {
     @FXML
     private TableColumn<?, ?> columnAppointmentID;
@@ -60,6 +61,11 @@ public class ReportUserIDController implements Initializable {
     @FXML
     private TableView<appointments> tableAppointments;
 
+    /**
+     * Returns the user to the main menu
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionMainMenu(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/MainMenu.fxml"));
@@ -69,17 +75,23 @@ public class ReportUserIDController implements Initializable {
         stage.show();
     }
 
+    /**
+     * When a selection is made from the user combo box, a list of filtered appointments is displayed
+     * @param event
+     */
     @FXML
     void onActionComboUser(ActionEvent event) {
-
-        // load table with appointments based on contactID
         int userID = comboboxUsers.getSelectionModel().getSelectedItem().getUser_ID();
         tableAppointments.setItems(appointmentsDAO.getApptByUser(userID));
     }
 
+    /**
+     * This method initializes the table with columns and the combo box with a list of users
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         // initialize table columns
         columnAppointmentID.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
         columnTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -92,7 +104,7 @@ public class ReportUserIDController implements Initializable {
         columnUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
         columnContactName.setCellValueFactory(new PropertyValueFactory<>("contactName"));
 
-        // initialize combo box list of users
+        // Initialize combo box list of users
         comboboxUsers.setItems(usersDAO.getUsersList());
     }
 }

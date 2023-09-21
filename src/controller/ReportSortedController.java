@@ -18,6 +18,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This class controls the fxml screen that displays a report of appointments sorted by month and appointment type
+ */
 public class ReportSortedController implements Initializable {
 
     @FXML
@@ -32,6 +35,12 @@ public class ReportSortedController implements Initializable {
     @FXML
     private TableView<reportsorted> tableMonthType;
 
+
+    /**
+     * Returns the user to the main menu
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionMainMenu(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/MainMenu.fxml"));
@@ -41,6 +50,11 @@ public class ReportSortedController implements Initializable {
         stage.show();
     }
 
+    /**
+     * This method initializes the table with columns for the report
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
