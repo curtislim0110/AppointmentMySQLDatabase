@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * class for customers, all appointments must be assigned to at least one customer
+ */
 public class customers {
 
     private int customerID;
@@ -12,6 +15,18 @@ public class customers {
     private int countryID;
     private String countryName;
 
+    /**
+     * constructor
+     * @param customerID customer ID, this is set by the database automatically
+     * @param customerName customer name
+     * @param customerAddress customer address
+     * @param customerPostal customer postal code
+     * @param customerPhone customer phone number
+     * @param firstDivisionID first division ID
+     * @param firstDivisionName first division name
+     * @param countryID country ID
+     * @param countryName country name
+     */
     public customers (int customerID, String customerName, String customerAddress, String customerPostal,
                      String customerPhone, int firstDivisionID, String firstDivisionName, int countryID, String countryName) {
 
@@ -26,33 +41,65 @@ public class customers {
         this.countryName = countryName;
     }
 
-    // Getters
+    /**
+     * getter
+     * @return
+     */
     public int getCustomerID() { return customerID; }
-    public String getCustomerName() { return customerName; }
-    public String getCustomerAddress() { return customerAddress; }
-    public String getCustomerPostal() { return customerPostal; }
-    public String getCustomerPhone() { return customerPhone; }
-    public int getFirstDivisionID() { return firstDivisionID; }
-    public String getFirstDivisionName() { return firstDivisionName; }
-    public int getCountryID() { return countryID; }
-    public String getCountryName() { return countryName; }
 
-    // Setters
-    public void setCustomerID(int customerID) { this.customerID = customerID; }
-    public void setCustomerName(String customerName) { this.customerName = customerName; }
-    public void setCustomerAddress(String customerAddress) { this.customerAddress = customerAddress; }
-    public void setCustomerPostal(String customerPostal) { this.customerPostal = customerPostal; }
-    public void setCustomerPhone(String customerPhone) { this.customerPhone = customerPhone; }
-    public void setFirstDivisionID(int firstDivisionID) { this.firstDivisionID = firstDivisionID; }
-    public void setFirstDivisionName(String firstDivisionName) { this.firstDivisionName = firstDivisionName; }
-    public void setCountryID(int countryID) { this.countryID = countryID; }
-    public void setCountryName(String countryName) { this.countryName = countryName; }
+    /**
+     * getter
+     * @return
+     */
+    public String getCustomerName() { return customerName; }
+
+    /**
+     * getter
+     * @return
+     */
+    public String getCustomerAddress() { return customerAddress; }
+
+    /**
+     * getter
+     * @return
+     */
+    public String getCustomerPostal() { return customerPostal; }
+
+    /**
+     * getter
+     * @return
+     */
+    public String getCustomerPhone() { return customerPhone; }
+
+    /**
+     * getter
+     * @return
+     */
+    public int getFirstDivisionID() { return firstDivisionID; }
+
+    /**
+     * getter
+     * @return
+     */
+    public String getFirstDivisionName() { return firstDivisionName; }
+
+    /**
+     * getter
+     * @return
+     */
+    public int getCountryID() { return countryID; }
+
+    /**
+     * getter
+     * @return
+     */
+    public String getCountryName() { return countryName; }
 
     /**
      * this toString method overrides the default toString method, which returns customerID instead
      * of a pointer reference to a hash code when customers are displayed in a combo box
      *
-     * @return customerID
+     * @return returns customerID to be displayed as a string
      */
     @Override
     public String toString() {

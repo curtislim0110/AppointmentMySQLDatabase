@@ -1,19 +1,34 @@
 package model;
 
+/**
+ * class for countries, each country is associated with multiple first level divisions like states or provinces
+ */
 public class countries {
 
     private int countryID;
     private String countryName;
 
+    /**
+     * constructor
+     * @param countryID countryID
+     * @param countryName country name
+     */
     public countries(int countryID, String countryName) {
         this.countryID = countryID;
         this.countryName = countryName;
     }
 
-    // Getters
+    /**
+     * getter
+     * @return
+     */
     public String getCountryName() { return countryName; }
-    public int getCountryID() { return countryID; }
 
+    /**
+     * getter
+     * @return
+     */
+    public int getCountryID() { return countryID; }
 
     /**
      * this toString method overrides the default toString method, which returns countryName instead

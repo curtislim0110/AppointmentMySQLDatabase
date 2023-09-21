@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Class for users
+ * class for users, who can login to the program with their username and password
  */
 public class users {
 
@@ -63,7 +63,7 @@ public class users {
      * this toString method overrides the default toString method, which returns user_ID instead
      * of a pointer reference to a hash code when customers are displayed in a combo box
      *
-     * @return user_ID returns userID to be displayed as a string
+     * @return returns userID to be displayed as a string
      */
     @Override
     public String toString() {
