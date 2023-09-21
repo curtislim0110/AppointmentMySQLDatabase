@@ -8,9 +8,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+/**
+ * This class supports data access for model user objects.  This includes getting a list of all users and user
+ * login verification
+ */
 public class usersDAO {
 
+    /**
+     * This static method returns a list of all users in the database.
+     * @return
+     */
     public static ObservableList<users> getUsersList() {
         ObservableList<users> allusersList = FXCollections.observableArrayList();
         try {
@@ -34,6 +41,14 @@ public class usersDAO {
         return allusersList;
     }
 
+    /**
+     * This static method takes in two parameters, user name and user password.  The method queries the database to
+     * verify if the input parameters have a match in the database.  This method returns true for a match, and false
+     * if there is no match.
+     * @param User_Name user name
+     * @param Password user password
+     * @return
+     */
     public static boolean usersLogin(String User_Name, String Password) {
         try {
             String sql = "SELECT * FROM users WHERE User_Name = ? AND Password = ?";
@@ -56,7 +71,11 @@ public class usersDAO {
         return false;
     }
 
-    // used to set a value in the appointments screen combo box for users
+    /**
+     * This method is used to set a value in the appointments screen combo box for user name
+     * @param userID
+     * @return
+     */
     public static String getUserName(int userID) {
         try {
             String sql = "SELECT User_Name FROM users WHERE User_ID = " + userID;
@@ -70,7 +89,11 @@ public class usersDAO {
         return null;
     }
 
-    // used to set a value in the appointments screen combo box for users
+    /**
+     * This method is used to set a value in the appointments screen combo box for user password
+     * @param userID
+     * @return
+     */
     public static String getPassword(int userID) {
         try {
             String sql = "SELECT Password FROM users WHERE User_ID = " + userID;

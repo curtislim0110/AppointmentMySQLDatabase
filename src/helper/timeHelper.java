@@ -5,9 +5,19 @@ import javafx.collections.ObservableList;
 
 import java.time.*;
 
+/**
+ * timehelper is a class that has time-translation methods
+ */
 public class timeHelper {
 
-    // This function is used to display potential appointment times in a user's local time zone, based on EST business hours of 8:00 to 22:00.
+    /**
+     * This method is used to display potential appointment times in a user's local time zone, based on EST business hours of 8:00 to 22:00.
+     * The output of this method is a list of LocalTime objects that correspond to business hours in 30 minute increments.  This list is
+     * used in the appointments screen to limit the user to appointment times that match EST business hours, which are in the user's
+     * local time zone.
+     * @param businessHourStart paramater that takes the starting business hour of the business
+     * @return
+     */
     public static ObservableList<LocalTime> appointmentHoursEST(LocalTime businessHourStart) {
 
         ObservableList<LocalTime> timeList = FXCollections.observableArrayList();

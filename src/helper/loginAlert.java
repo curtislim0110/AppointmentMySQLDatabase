@@ -9,15 +9,17 @@ import model.appointments;
 import java.time.LocalDateTime;
 
 /**
- * This class contains a function for display alerts related to logins
- *
+ * This class contains a method for displaing alerts related to user login
  */
 
 public class loginAlert {
 
     /**
-     * This method loads a list of appointments that begin within 15 minutes of a successful login.  Each appointment
-     * that is within 15 minutes will display a custom login message with the appointment ID and starting date and time
+     *
+     * This method is called after a successful user login. Appointments that begin within 15 minutes of a successful
+     * login are listed in information popups.  Each appointment that is within 15 minutes will display a custom
+     * login message with the appointment ID and starting date and time of the appointment.  Alternatively, if there
+     * are no appointments within 15 minutes, a different popup message will inform the user about this.
      */
 
     public static void loginAppointmentAlert() {
