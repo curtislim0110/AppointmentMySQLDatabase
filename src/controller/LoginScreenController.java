@@ -91,8 +91,6 @@ public class LoginScreenController implements Initializable {
             stage.setScene(scene);
             stage.show();
         }
-
-
     }
 
     /**

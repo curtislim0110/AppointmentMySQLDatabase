@@ -260,9 +260,9 @@ public class AppointmentsController implements Initializable {
         // Find the date 1 month away from the current local time
         LocalDateTime monthCalendar = LocalDateTime.now().plusMonths(1);
 
-        // Find all appointment starting times within 1 month of the current time
+        // Find all appointment starting times between now and 1 month of the current time
         for (appointments singleAppointment : allAppointmentsList) {
-            if (singleAppointment.getAppointmentStart().isBefore(monthCalendar)) {
+            if (singleAppointment.getAppointmentStart().isBefore(monthCalendar) && singleAppointment.getAppointmentStart().isAfter(LocalDateTime.now())) {
                 monthAppointmentsList.add(singleAppointment);
             }
         }
@@ -278,9 +278,9 @@ public class AppointmentsController implements Initializable {
         // Find the date 1 week away from the current local time
         LocalDateTime weekCalendar = LocalDateTime.now().plusWeeks(1);
 
-        // Find all appointment starting times within 1 week of the current time
+        // Find all appointment starting times between now and 1 week of the current time
         for (appointments singleAppointment : allAppointmentsList) {
-            if (singleAppointment.getAppointmentStart().isBefore(weekCalendar)) {
+            if (singleAppointment.getAppointmentStart().isBefore(weekCalendar) && singleAppointment.getAppointmentStart().isAfter(LocalDateTime.now())) {
                 weekAppointmentsList.add(singleAppointment);
             }
         }
