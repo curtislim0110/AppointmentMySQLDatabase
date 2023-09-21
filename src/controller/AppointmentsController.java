@@ -178,6 +178,16 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /**
+     * This appointment button first checks to see if there are and text fields or missing selections, and displays an
+     * appropriate error message.  If there is no input error, the method then checks for logical errors like
+     * appointment times that overlap or that span over multiple business days. When checking for an overlapping
+     * appointment, the method ensures that the current appointment does not generate an error by "overlapping itself".
+     * Therefore, the appointment description or type can be changed without incorrectly generating an error message.
+     * If there are no input or logical errors, the appointment is updated based on the text fields and combo box
+     * selections, and a informational message is displayed.
+     * @param event
+     */
     @FXML
     void onActionUpdateAppointment(ActionEvent event) {
         // check for null values or empty text fields and display an error message if input is missing
@@ -237,6 +247,13 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /**
+     * This is the delete appointment button.  When pressed, the method first checks to see if the user has already
+     * selected an appointment from the table.  If no selection was made, an error message is displayed.  If there is
+     * an selected appointment, a confirmational message is displayed to confirm the deletion.  After confirming the
+     * appointment deletion, the a message is displayed which shows the type of appointment deleted.
+     * @param event
+     */
     @FXML
     void onActionDeleteAppointment(ActionEvent event) {
         // first verify an appointment has been selected
@@ -268,12 +285,20 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /**
+     * This radio button displays all appointments, and is the default setting when loading the appointments screen.
+     * @param event
+     */
     @FXML
     void onActionAppointmentsAll(ActionEvent event) {
         ObservableList<appointments> allAppointmentsList = appointmentsDAO.getAllAppointments();
         tableAppointments.setItems(allAppointmentsList);
     }
 
+    /**
+     * This radio button displays appointments that are between the login date and 1 month into the future.
+     * @param event
+     */
     @FXML
     void onActionAppointmentsMonth(ActionEvent event) {
         // Get all appointments in a list, and initialize a second empty list to contain appointments up to 1 month away in the future
@@ -292,6 +317,10 @@ public class AppointmentsController implements Initializable {
         tableAppointments.setItems(monthAppointmentsList);
     }
 
+    /**
+     * This radio button displays appointments that are between the login date and 1 week into the future.
+     * @param event
+     */
     @FXML
     void onActionAppointmentsWeek(ActionEvent event) {
         // Get all appointments in a list, and initialize a second empty list to contain appointments up to 1 week away in the future
@@ -362,6 +391,11 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /**
+     * Lambda Expression #1, interface and description is in /helper/lambdaAlertInterface.  The lambda code is useful
+     * because slightly reduces the length of the expression, improving code readability.
+     * This method displays different alerts based on the parameter integer value.
+     */
     lambdaAlertInterface currentAlert = e -> {
         if (e == 1) {
             Alert newAlert = new Alert(Alert.AlertType.ERROR);
@@ -377,6 +411,11 @@ public class AppointmentsController implements Initializable {
         }
     };
 
+    /**
+     * This method initializes the table with columns and the combo box with a list of users
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -406,7 +445,6 @@ public class AppointmentsController implements Initializable {
         // initialize combo box for end time in 30 minute local time increments starting at 8:30am EST
         comboEndTime.setItems(timeHelper.appointmentHoursEST(LocalTime.of(8, 30)));
     }
-
 
 }
 
