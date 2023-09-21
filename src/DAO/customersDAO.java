@@ -8,12 +8,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class for database queries related to customers objects
+ */
 public class customersDAO {
 
+    /**
+     * This static method returns a list of customers objects, joined with first level divisionID, division name,
+     * countryID, and country name.
+     * @return a list of customers objects
+     */
     public static ObservableList<customers> getAllCustomers() {
 
         ObservableList<customers> customersList = FXCollections.observableArrayList();
-
         try {
             String sql = "SELECT * FROM customers, first_level_divisions, countries " +
                     "WHERE customers.Division_ID = first_level_divisions.Division_ID " +
@@ -46,6 +53,14 @@ public class customersDAO {
         return customersList;
     }
 
+    /**
+     * This method inserts a single customer into the database.
+     * @param customerName
+     * @param address
+     * @param postal
+     * @param phone
+     * @param firstDivisionID
+     */
     public static void addCustomer(String customerName, String address, String postal, String phone, int firstDivisionID) {
         try {
             String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (?, ?, ?, ?, ?)";
@@ -61,6 +76,10 @@ public class customersDAO {
         }
     }
 
+    /**
+     * This method deletes a customer from the database, based on customeriD.
+     * @param customerID
+     */
     public static void deleteCustomer(int customerID) {
         try {
             String sql = "DELETE FROM customers WHERE Customer_ID = ?";
@@ -72,6 +91,15 @@ public class customersDAO {
         }
     }
 
+    /**
+     * This method updates a single customer record in the database, based on customerID.
+     * @param customerID
+     * @param customerName
+     * @param customerAddress
+     * @param customerPostalCode
+     * @param customerPhone
+     * @param divisionID
+     */
     public static void updateCustomer(int customerID, String customerName, String customerAddress, String customerPostalCode,
                                       String customerPhone, int divisionID) {
         try {
@@ -89,7 +117,11 @@ public class customersDAO {
         }
     }
 
-    // used to set a value for a combo box in customers screen and appointments screen
+    /**
+     * This method is used to set a value for a combo box in the customers screen and the appointments screen
+     * @param divisionID
+     * @return division name
+     */
     public static String getDivisionName(int divisionID) {
         try {
             String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = " + divisionID;
@@ -104,7 +136,11 @@ public class customersDAO {
         return null;
     }
 
-    // used to set a value for a combo box in customers screen and appointments screen
+    /**
+     * This method is used to set a value for a combo box in the customers screen and the appointments screen
+     * @param divisionID
+     * @return countryID
+     */
     public static int getCountryID(int divisionID) {
         try {
             String sql = "SELECT Country_ID FROM first_level_divisions WHERE Division_ID = " + divisionID;
@@ -117,7 +153,11 @@ public class customersDAO {
         }
     }
 
-    // used to set a value in the appointments screen combo box for users
+    /**
+     * This method is used to set a value in the appointments screen combo box
+     * @param customerID
+     * @return returns customer name
+     */
     public static String getCustomerName(int customerID) {
         try {
             String sql = "SELECT Customer_Name FROM customers WHERE Customer_ID = " + customerID;
@@ -131,7 +171,11 @@ public class customersDAO {
         return null;
     }
 
-    // used to set a value in the appointments screen combo box for users
+    /**
+     * This method is used to set a value in the appointments screen combo box
+     * @param customerID
+     * @return returns customer address
+     */
     public static String getAddress(int customerID) {
         try {
             String sql = "SELECT Address FROM customers WHERE Customer_ID = " + customerID;
@@ -145,7 +189,11 @@ public class customersDAO {
         return null;
     }
 
-    // used to set a value in the appointments screen combo box for users
+    /**
+     * This method is used to set a value in the appointments screen combo box
+     * @param customerID
+     * @return customer postal code
+     */
     public static String getPostal(int customerID) {
         try {
             String sql = "SELECT Postal_Code FROM customers WHERE Customer_ID = " + customerID;
@@ -159,6 +207,11 @@ public class customersDAO {
         return null;
     }
 
+    /**
+     * This method is used to set a value in the appointments screen combo box
+     * @param customerID
+     * @return customer phone number
+     */
     public static String getPhone(int customerID) {
         try {
             String sql = "SELECT Phone FROM customers WHERE Customer_ID = " + customerID;
@@ -172,6 +225,12 @@ public class customersDAO {
         return null;
     }
 
+    /**
+     * This method is used to set a value in the appointments screen combo box
+     * @param customerID
+     * @return customer divisionID
+     * @throws SQLException
+     */
     public static int getDivisionID(int customerID) throws SQLException{
         String sql = "SELECT Division_ID FROM customers WHERE Customer_ID = " + customerID;
         PreparedStatement psSELECT = JDBC.JDBCconnection.prepareStatement(sql);

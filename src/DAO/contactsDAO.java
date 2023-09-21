@@ -8,7 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class for database queries related to contacts objects
+ */
 public class contactsDAO {
+
+    /**
+     * This static method returns of list of all contacts in the database
+     * @return list of contacts objects
+     */
     public static ObservableList<contacts> getAllContacts() {
         ObservableList<contacts> currentcontactlist = FXCollections.observableArrayList();
         try {
@@ -29,7 +37,11 @@ public class contactsDAO {
         return currentcontactlist;
     }
 
-    // used to set a value in the appointments screen combo box for contacts
+    /**
+     * This method returns a single contact name based on contact ID
+     * @param contactID
+     * @return contact name
+     */
     public static String getContactName(int contactID) {
         try {
             String sql = "SELECT Contact_Name FROM contacts WHERE Contact_ID = " + contactID;
@@ -43,6 +55,11 @@ public class contactsDAO {
         return null;
     }
 
+    /**
+     * This method returns a single contact email based on contact ID
+     * @param contactID
+     * @return contact ID
+     */
     public static String getEmail(int contactID) {
         try {
             String sql = "SELECT Email FROM contacts WHERE Contact_ID = " + contactID;

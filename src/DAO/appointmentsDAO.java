@@ -10,7 +10,15 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * Class for database queries related to appointments objects
+ */
 public class appointmentsDAO {
+
+    /**
+     * This static method returns a list of all appointments objects
+     * @return list of appointments
+     */
     public static ObservableList<appointments> getAllAppointments() {
         ObservableList<appointments> appointmentList = FXCollections.observableArrayList();
         try {
@@ -47,6 +55,10 @@ public class appointmentsDAO {
         return appointmentList;
     }
 
+    /**
+     * Deletes an appointment from the database based on appointmentiD
+     * @param appointmentID
+     */
     public static void deleteAppointment(int appointmentID) {
         try {
             String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
@@ -58,6 +70,19 @@ public class appointmentsDAO {
         }
     }
 
+    /**
+     * Adds a new appointment to the database based on input parameters.  Checks for appointment overlap are performed
+     * outside of this method, in appointments.addConflictCheck.
+     * @param title
+     * @param description
+     * @param location
+     * @param type
+     * @param starttime
+     * @param endtime
+     * @param customerID
+     * @param userID
+     * @param contactID
+     */
     public static void addAppointment(String title, String description, String location, String type, LocalDateTime starttime,
                                       LocalDateTime endtime, int customerID, int userID, int contactID) {
         try {
@@ -79,6 +104,20 @@ public class appointmentsDAO {
         }
     }
 
+    /**
+     * Updates an existing appointment in the database based on input parameters.  Checks for appointment overlap
+     * while updating are performed outside of this method, in appointments.modifyConflictCheck.
+     * @param appointmentID
+     * @param title
+     * @param description
+     * @param location
+     * @param type
+     * @param starttime
+     * @param endtime
+     * @param customerID
+     * @param userID
+     * @param contactID
+     */
     public static void updateAppointment(int appointmentID, String title, String description, String location,
                                          String type, LocalDateTime starttime, LocalDateTime endtime,
                                          int customerID, int userID, int contactID) {
@@ -102,7 +141,11 @@ public class appointmentsDAO {
         }
     }
 
-    // this method is used for the report: contact schedule
+    /**
+     * This method is used to get a list of appointments related to a single contact, for a report
+     * @param contactID
+     * @return filtered list of appointments by contact
+     */
     public static ObservableList<appointments> getApptByContact(int contactID) {
         ObservableList<appointments> contactappointmentList = FXCollections.observableArrayList();
 
@@ -138,7 +181,11 @@ public class appointmentsDAO {
         return contactappointmentList;
     }
 
-    // this method is used for the report: user schedule
+    /**
+     * This method is used to get a list of appointments related to a single user, for a report
+     * @param userID
+     * @return filtered list of appointments by user
+     */
     public static ObservableList<appointments> getApptByUser(int userID) {
         ObservableList<appointments> userappointmentList = FXCollections.observableArrayList();
 
