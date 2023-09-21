@@ -11,13 +11,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.users;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Locale;
@@ -25,6 +23,9 @@ import java.util.ResourceBundle;
 
 import static DAO.usersDAO.usersLogin;
 
+/**
+ *  This class controls the login screen, which is the first screen the user sees when starting the program.
+ */
 public class LoginScreenController implements Initializable {
 
     @FXML
@@ -51,7 +52,15 @@ public class LoginScreenController implements Initializable {
     @FXML
     private TextField usernametxt;
 
-
+    /**
+     * This is the action button for the login screen.  When this button is pressed, the username and password
+     * is verified with the database.  If there is incomplete or incorrect login information, an error alert will
+     * display on the screen.  Otherwise, upon a successful login all appointments beginning within 15 minutes are
+     * displayed in alert messages and the screen changes to the main menu.  Additionally, all successful or failed
+     * login attempts are recorded in the external file login_activity.txt, located in the root folder.
+     * @param event
+     * @throws IOException
+     */
     public void onActionLoginButton(ActionEvent event) throws IOException {
 
         ResourceBundle languageBundle = ResourceBundle.getBundle("language/language", Locale.getDefault());
@@ -94,7 +103,9 @@ public class LoginScreenController implements Initializable {
     }
 
     /**
-     * Lambda Expression #2, interface and description is in /helper/lambdaTextInterface
+     * Lambda Expression #2, interface and description is in /helper/lambdaTextInterface.  The lambda code slightly
+     * reduces the length of the expression, improving code readability.
+     * This method appends login_activity.txt with records of successful or failed user logins in UTC.
      */
     lambdaTextInterface loginAttemptTXT = successBoolean -> {
         String filename = "login_activity.txt";
@@ -113,9 +124,14 @@ public class LoginScreenController implements Initializable {
         loginOutputFile.close();
     };
 
+    /**
+     * This method initializes labels on the login screen with language depending on the system default setting.
+     * English and French are supported languages.  The location label will display the local user ZoneID.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         // Sets the location text box (which is not editable) to system default
         localtionlabeltxt.setText(String.valueOf(ZoneId.systemDefault()));
 

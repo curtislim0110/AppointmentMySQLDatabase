@@ -26,6 +26,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
+/**
+ *  This class controls the appointments screen.  The user can add, update, or delete appointments on this screen.
+ */
 public class AppointmentsController implements Initializable {
 
     @FXML
@@ -97,6 +100,11 @@ public class AppointmentsController implements Initializable {
     @FXML
     private TextField textType;
 
+    /**
+     * Returns the user to the main menu
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionMainMenu(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/MainMenu.fxml"));
@@ -106,6 +114,13 @@ public class AppointmentsController implements Initializable {
         stage.show();
     }
 
+    /**
+     * This appointment button first checks to see if there are and text fields or missing selections, and displays an
+     * appropriate error message.  If there is no input error, the method then checks for logical errors like
+     * appointment times that overlap or that span over multiple business days.  If there are no input or logical
+     * errors, a new appointment is added and a informational message is displayed.
+     * @param event
+     */
     @FXML
     void onActionAddAppointment(ActionEvent event) {
         // check for null values or empty text fields and display an error message if input is missing
@@ -153,6 +168,10 @@ public class AppointmentsController implements Initializable {
 
             // if there are no errors or overlapping appointments, add a new appointment and refresh table
             else {
+                Alert newAlert = new Alert(Alert.AlertType.INFORMATION);
+                newAlert.setTitle("Success");
+                newAlert.setContentText("New appointment added");
+                newAlert.showAndWait();
                 appointmentsDAO.addAppointment(title, description, location, type, startDateTime, endDateTime, customerID, userID, contactID);
                 tableAppointments.setItems(appointmentsDAO.getAllAppointments());
             }
@@ -207,6 +226,10 @@ public class AppointmentsController implements Initializable {
 
             // if there are no errors or overlapping appointments, add a new appointment and refresh table
             else {
+                Alert newAlert = new Alert(Alert.AlertType.INFORMATION);
+                newAlert.setTitle("Success");
+                newAlert.setContentText("Updated appointment data");
+                newAlert.showAndWait();
                 appointmentsDAO.updateAppointment(appointmentID, title, description, location, type,
                         startDateTime, endDateTime, customerID, userID, contactID);
                 tableAppointments.setItems(appointmentsDAO.getAllAppointments());
@@ -287,6 +310,11 @@ public class AppointmentsController implements Initializable {
         tableAppointments.setItems(weekAppointmentsList);
     }
 
+    /**
+     * This mouse click method activates when the user clicks a row on the table.  The selected row
+     * is used to populate text fields and set values to combo boxes.
+     * @param event
+     */
     @FXML
     void onMouseClickTable(MouseEvent event) throws SQLException {
         if (tableAppointments.getSelectionModel().getSelectedItem() == null) {

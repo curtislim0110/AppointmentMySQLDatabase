@@ -28,6 +28,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ *  This class controls the customers screen.  The user can add, update, or delete customers on this screen.
+ */
 public class CustomersController implements Initializable {
 
     @FXML
@@ -75,9 +78,14 @@ public class CustomersController implements Initializable {
     @FXML
     private TextField textPostal;
 
+    /**
+     * This is the add customer button.  When pressed, the method first checks to see if there are any empty text
+     * fields or missing selections and displays an appropriate error message.  If there is no error message, a new
+     * customer is added an informational message is displayed.
+     * @param event
+     */
     @FXML
     void onActionAdd(ActionEvent event) {
-
         try {
             // Load data into local variables
             String customerName = textCustomerName.getText();
@@ -118,7 +126,13 @@ public class CustomersController implements Initializable {
         }
     }
 
-
+    /**
+     * This is the update customer button.  When pressed, the method first checks to see if there are any empty text
+     * fields or missing selections and displays an appropriate error message.  If there is no error message, the
+     * existing customer is updated based on the text fields and combo box selections.  A informational message is
+     * displaying after successfully updating a customer.
+     * @param event
+     */
     @FXML
     void onActionUpdate(ActionEvent event) {
         try {
@@ -166,6 +180,13 @@ public class CustomersController implements Initializable {
         }
     }
 
+    /**
+     * This is the delete customer button.  When pressed, the method first checks to see if the user has already
+     * selected a customer from the table.  If not, an error message displays.  If a customer was selected, the method
+     * checks to see if there are any appointments associated with a customer.  Next, a deletion confirmation message
+     * is displaying, informing the user if there are any existing appointments associated with the selected customer.
+     * AFter the user confirms deletion, the customer and any associated appointments are also deleted.
+     */
     @FXML
     void onActionDelete(ActionEvent event) {
 
@@ -256,7 +277,11 @@ public class CustomersController implements Initializable {
         }
     }
 
-
+    /**
+     * Returns the user to the main menu
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionMainMenu(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/MainMenu.fxml"));
@@ -266,8 +291,11 @@ public class CustomersController implements Initializable {
         stage.show();
     }
 
-
-    // Clicking a row in the tableview will load the object's data into textboxes and combo boxes
+    /**
+     * This mouse click method activates when the user clicks a row on the table.  The selected row
+     * is used to populate text fields and set values to combo boxes.
+     * @param event
+     */
     @FXML
     void onMouseClickTable(MouseEvent event) {
         if (tableCustomers.getSelectionModel().getSelectedItem() == null) {
@@ -305,7 +333,9 @@ public class CustomersController implements Initializable {
     }
 
     /**
-     * Lambda Expression #1, interface and description is in /helper/lambdaAlertInterface
+     * Lambda Expression #1, interface and description is in /helper/lambdaAlertInterface.  The lambda code is useful
+     * because slightly reduces the length of the expression, improving code readability.
+     * This method displays different alerts based on the parameter integer value.
      */
     lambdaAlertInterface currentAlert = e -> {
         if (e == 1) {
@@ -370,11 +400,16 @@ public class CustomersController implements Initializable {
         }
     };
 
+    /**
+     * This method initializes the table with columns and the combo box with a list of users.  First level divisions
+     * are not loaded here, and are loaded dynamically after the user makes a selection on the country combo box.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         // when opening customers menu, display all customers in database joined with their first division name
-
         columnID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         columnName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         columnAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
@@ -395,9 +430,5 @@ public class CustomersController implements Initializable {
         // divisions must be loaded dynamically when the country box is selected, not initialized
         // comboboxFirstLevel.setItems(firstleveldivisionsDAO.getAllFirstLevelDivisions());
         comboboxFirstLevel.setPromptText("Select First Level");
-
-
-
-
     }
 }
